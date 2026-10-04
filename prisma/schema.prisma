@@ -1,0 +1,220 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+enum Role {
+  CLIENT
+  ADMIN
+}
+
+enum FuelType {
+  Essence
+  Diesel
+  Electrique
+  Hybride
+}
+
+enum Transmission {
+  Manuelle
+  Automatique
+}
+
+enum Category {
+  Berline
+  SUV
+  Citadine
+  Break
+  Coupe
+  Monospace
+  Utilitaire
+  FourX4
+}
+
+enum PaymentType {
+  full
+  deposit
+  monthly
+}
+
+enum OrderStatus {
+  pending
+  confirmed
+  processing
+  shipped
+  delivered
+  cancelled
+}
+
+enum InstallmentType {
+  full
+  deposit
+  monthly
+  balance
+}
+
+enum PaymentStatus {
+  pending
+  paid
+  late
+  cancelled
+}
+
+model User {
+  id            Int      @id @default(autoincrement())
+  username      String   @unique
+  email         String   @unique
+  password      String
+  firstName     String
+  lastName      String
+  phone         String?
+  address       String?
+  monthlySalary Float?
+  role          Role     @default(CLIENT)
+  emailVerified Boolean  @default(false)
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  orders          Order[]
+  cartItems       Cart[]
+  trackingUpdates OrderTracking[]
+}
+
+model Car {
+  id             Int          @id @default(autoincrement())
+  make           String
+  model          String
+  year           Int
+  price          Float
+  description    String?      @db.Text
+  fuelType       FuelType
+  transmission   Transmission
+  mileage        Int          @default(0)
+  color          String?
+  power          Int?
+  category       Category
+  imageUrl       String?
+  imageUrl2      String?
+  imageUrl3      String?
+  imageUrl4      String?
+  imageUrl5      String?
+  imageUrl6      String?
+  imageUrl7      String?
+  imageUrl8      String?
+  imageUrl9      String?
+  imageUrl10     String?
+  imageUrl11     String?
+  imageUrl12     String?
+  imageUrl13     String?
+  imageUrl14     String?
+  imageUrl15     String?
+  imageUrl16     String?
+  imageUrl17     String?
+  imageUrl18     String?
+  imageUrl19     String?
+  imageUrl20     String?
+  minSalary      Float?
+  monthlyPayment Float?
+  featured       Boolean      @default(false)
+  promotional    Boolean      @default(false)
+  isActive       Boolean      @default(true)
+  createdAt      DateTime     @default(now())
+
+  orderItems OrderItem[]
+  cartItems  Cart[]
+}
+
+model Order {
+  id              Int         @id @default(autoincrement())
+  orderNumber     String      @unique
+  userId          Int
+  totalPrice      Float
+  paymentType     PaymentType
+  depositAmount   Float?
+  monthlyAmount   Float?
+  monthlyDuration Int?
+  discountAmount  Float?
+  status          OrderStatus @default(pending)
+  notes           String?     @db.Text
+  shippingAddress String?
+  paymentReference String?
+  paymentProofUrl  String?
+  createdAt       DateTime    @default(now())
+  updatedAt       DateTime    @updatedAt
+
+  user     User           @relation(fields: [userId], references: [id])
+  items    OrderItem[]
+  tracking OrderTracking[]
+  payments Payment[]
+}
+
+model OrderItem {
+  id        Int   @id @default(autoincrement())
+  orderId   Int
+  carId     Int
+  quantity  Int   @default(1)
+  unitPrice Float
+
+  order Order @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  car   Car   @relation(fields: [carId],   references: [id])
+}
+
+model OrderTracking {
+  id        Int         @id @default(autoincrement())
+  orderId   Int
+  status    OrderStatus
+  comment   String?     @db.Text
+  updatedBy Int?
+  createdAt DateTime    @default(now())
+
+  order Order @relation(fields: [orderId],   references: [id], onDelete: Cascade)
+  admin User? @relation(fields: [updatedBy], references: [id])
+}
+
+model Payment {
+  id        Int             @id @default(autoincrement())
+  orderId   Int
+  type      InstallmentType
+  amount    Float
+  dueDate   DateTime?
+  paidAt    DateTime?
+  status    PaymentStatus   @default(pending)
+  reference String?
+  note      String?         @db.Text
+  createdAt DateTime        @default(now())
+  updatedAt DateTime        @updatedAt
+
+  order Order @relation(fields: [orderId], references: [id], onDelete: Cascade)
+
+  @@index([orderId])
+}
+
+model Cart {
+  id          Int         @id @default(autoincrement())
+  userId      Int
+  carId       Int
+  quantity    Int         @default(1)
+  paymentType PaymentType @default(full)
+  createdAt   DateTime    @default(now())
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  car  Car  @relation(fields: [carId],  references: [id])
+
+  @@unique([userId, carId])
+}
+
+model BankInfo {
+  id          Int      @id @default(autoincrement())
+  iban        String   @default("")
+  bic         String   @default("")
+  beneficiary String   @default("AUTOMATIK GEBRAUCHTWAGEN")
+  transferType String  @default("SEPA")
+  updatedAt   DateTime @updatedAt
+
+  @@map("bank_info")
+}
