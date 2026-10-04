@@ -354,15 +354,6 @@ export default function Navbar() {
                         {t('nav_admin', lang)}
                       </Link>
                     )}
-                    {!isAuthenticated && (
-                      <Link to="/login" onClick={() => setMenuOpen(false)}
-                        style={{ ...itemStyle(isMobile), display: 'flex', color: menuText2 }}
-                        onMouseOver={e => { if (!isMobile) e.currentTarget.style.background = menuHover; }}
-                        onMouseOut={e => e.currentTarget.style.background = 'transparent'}>
-                        <span style={{ fontSize: isMobile ? 20 : 15, width: isMobile ? 28 : 20, textAlign: 'center' }}>→</span>
-                        {lang==='fr'?'Connexion admin':lang==='en'?'Admin login':lang==='de'?'Admin-Login':'Acceso admin'}
-                      </Link>
-                    )}
                   </div>
 
                   <div style={{ height: 1, background: menuBorder, margin: isMobile ? '8px 0' : 0 }} />
