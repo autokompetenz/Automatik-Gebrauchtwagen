@@ -587,7 +587,6 @@ export default function Cart() {
                 setIncludeRegistration={setIncludeRegistration}
                 selectedAdditionalServices={selectedAdditionalServices}
                 setSelectedAdditionalServices={setSelectedAdditionalServices}
-                setProofFile={setProofFile}
                 customerName={customerName}
                 setCustomerName={setCustomerName}
                 customerLastName={customerLastName}
