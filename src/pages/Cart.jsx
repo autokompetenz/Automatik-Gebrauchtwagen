@@ -122,7 +122,7 @@ function CheckoutPanel({
   selectedWarranty, setSelectedWarranty,
   includeRegistration, setIncludeRegistration,
   selectedAdditionalServices, setSelectedAdditionalServices,
-  proofFile, setProofFile,
+
   customerName, setCustomerName, customerLastName, setCustomerLastName,
   customerEmail, setCustomerEmail, customerPhone, setCustomerPhone,
 }) {
@@ -391,70 +391,11 @@ function CheckoutPanel({
           />
         </div>
 
-        {/* Payment proof upload */}
-        <div style={{
-          padding:16, borderRadius:10,
-          border:`1.5px dashed ${proofFile ? 'var(--green)' : 'var(--border)'}`,
-          background: proofFile ? 'rgba(34,197,94,0.05)' : 'var(--bg-card2)',
-          transition:'all 0.2s',
-        }}>
-          <label style={{ display:'block', fontSize:12, fontWeight:700, letterSpacing:'0.08em', textTransform:'uppercase', color:'var(--text-3)', marginBottom:8 }}>
-            📎 {l==='fr'?'Preuve de virement (obligatoire)':l==='en'?'Bank transfer receipt (required)':l==='de'?'Überweisungsbeleg (erforderlich)':'Comprovante de transferência (obrigatório)'}
-          </label>
-          <p style={{ fontSize:12, color:'var(--text-3)', lineHeight:1.6, marginBottom:10 }}>
-            {l==='fr'
-              ? 'Après avoir effectué votre virement aux coordonnées bancaires indiquées, joignez la preuve (capture, PDF ou photo) avant de valider votre commande.'
-              : l==='en'
-              ? 'After making your transfer to the bank details shown, attach the receipt (screenshot, PDF or photo) before submitting your order.'
-              : l==='de'
-              ? 'Nach der Überweisung auf die angegebenen Bankdaten fügen Sie den Beleg (Screenshot, PDF oder Foto) bei, bevor Sie Ihre Bestellung absenden.'
-              : 'Após efetuar a transferência para os dados bancários indicados, anexe o comprovante (captura, PDF ou foto) antes de enviar seu pedido.'}
+        {/* Payment info */}
+        <div style={{ padding:16, borderRadius:10, background:'var(--bg-card2)', border:'1px solid var(--border)' }}>
+          <p style={{ fontSize:13, color:'var(--text-2)', fontWeight:600, margin:0 }}>
+            💳 {l==='fr'?'L\'adresse de paiement vous sera communiquée par email une fois votre commande validée.':l==='en'?'The payment details will be sent to your email once your order is confirmed.':l==='de'?'Die Zahlungsdaten werden Ihnen nach Bestätigung Ihrer Bestellung per E-Mail mitgeteilt.':'Los datos de pago se le enviarán por email una vez confirmado su pedido.'}
           </p>
-          <div style={{ display:'flex', alignItems:'center', gap:12, flexWrap:'wrap' }}>
-            <input
-              type="file"
-              accept="image/*,.pdf"
-              id="payment-proof-input"
-              onChange={(e) => {
-                const f = e.target.files?.[0];
-                if (!f) return;
-                if (f.size > 10 * 1024 * 1024) {
-                  addToast(f.name + ' ' + (l==='fr'?'trop volumineux (max 10MB)':l==='en'?'too large (max 10MB)':l==='de'?'zu groß (max 10MB)':'muito grande (máx 10MB)'), 'error');
-                  e.target.value = '';
-                  return;
-                }
-                setProofFile(f);
-              }}
-              style={{ display:'none' }}
-            />
-            <button
-              type="button"
-              onClick={() => document.getElementById('payment-proof-input')?.click()}
-              className="btn-ghost"
-              style={{
-                borderColor: proofFile ? 'var(--green)' : 'var(--border)',
-                color: proofFile ? 'var(--green)' : 'var(--text-3)',
-                padding:'10px 16px', fontSize:13,
-              }}
-            >
-              {proofFile ? '✓ ' : '+ '}{l==='fr'?'Choisir le fichier':l==='en'?'Choose file':l==='de'?'Datei wählen':'Escolher arquivo'}
-            </button>
-            {proofFile && (
-              <div style={{ minWidth:0, display:'flex', alignItems:'center', gap:10, flex:1 }}>
-                <p style={{ fontSize:13, color:'var(--green)', fontWeight:600, whiteSpace:'nowrap', overflow:'hidden', textOverflow:'ellipsis' }}>
-                  {proofFile.name}
-                </p>
-                <button
-                  type="button"
-                  onClick={() => { setProofFile(null); document.getElementById('payment-proof-input').value = ''; }}
-                  style={{ background:'none', border:'none', color:'#DC2626', cursor:'pointer', fontSize:14, flexShrink:0 }}
-                  aria-label="Retirer"
-                >
-                  ✕
-                </button>
-              </div>
-            )}
-          </div>
         </div>
 
         <button type="submit" disabled={placing} className="btn-primary"
@@ -484,7 +425,6 @@ export default function Cart() {
   const [shippingAddress, setShippingAddress] = useState('');
   const [notes, setNotes] = useState('');
   const [placing, setPlacing] = useState(false);
-  const [proofFile, setProofFile] = useState(null);
   const [customerName, setCustomerName] = useState('');
   const [customerLastName, setCustomerLastName] = useState('');
   const [customerEmail, setCustomerEmail] = useState(localStorage.getItem('ak_order_email') || '');
@@ -507,10 +447,6 @@ export default function Cart() {
     }
     if (!customerEmail.trim() || !customerName.trim()) {
       addToast(lang === 'fr' ? 'Nom et email requis' : 'Name and email required', 'warning');
-      return;
-    }
-    if (!proofFile) {
-      addToast(lang==='fr'?'Veuillez joindre la preuve de virement avant d\'envoyer la commande':lang==='en'?'Please attach the bank transfer receipt before submitting your order':lang==='de'?'Bitte fügen Sie vor dem Senden der Bestellung den Überweisungsbeleg bei':'Anexe o comprovante de transferência antes de enviar o pedido', 'warning');
       return;
     }
     try {
@@ -538,14 +474,13 @@ export default function Cart() {
         price: REGISTRATION_SERVICE.price
       }) : '');
       formData.append('additionalServices', additionalServicesData.length > 0 ? JSON.stringify(additionalServicesData) : '');
-      formData.append('paymentProof', proofFile);
+
       formData.append('email', customerEmail.trim());
       formData.append('firstName', customerName.trim());
       formData.append('lastName', customerLastName.trim());
       formData.append('phone', customerPhone.trim());
       formData.append('items', JSON.stringify(items.map(i => ({ carId: i.carId, quantity: i.quantity }))));
       const { data } = await orderAPI.create(formData);
-      setProofFile(null);
       localStorage.setItem('ak_order_email', customerEmail.trim());
       clear();
       navigate(`/order-confirm/${data.orderNumber}`);
@@ -652,7 +587,6 @@ export default function Cart() {
                 setIncludeRegistration={setIncludeRegistration}
                 selectedAdditionalServices={selectedAdditionalServices}
                 setSelectedAdditionalServices={setSelectedAdditionalServices}
-                proofFile={proofFile}
                 setProofFile={setProofFile}
                 customerName={customerName}
                 setCustomerName={setCustomerName}
