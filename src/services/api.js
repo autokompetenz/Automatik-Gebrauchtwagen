@@ -15,12 +15,10 @@ api.interceptors.request.use((config) => {
 api.interceptors.response.use(
   (res) => res,
   (err) => {
-    if (err.response?.status === 401) {
+    // Ne plus forcer la redirection vers /login sur toute 401 — ça bloque le checkout invité
+    if (err.response?.status === 401 && window.location.pathname.startsWith('/admin')) {
       localStorage.removeItem('ak_token');
       localStorage.removeItem('ak_user');
-      if (!window.location.pathname.includes('/login')) {
-        window.location.href = '/login';
-      }
     }
     return Promise.reject(err);
   }

@@ -16,7 +16,6 @@ const Simulation   = lazy(() => import('./pages/Simulation'));
 const Cart         = lazy(() => import('./pages/Cart'));
 const Track        = lazy(() => import('./pages/Track'));
 const OrderConfirm = lazy(() => import('./pages/OrderConfirm'));
-const Login        = lazy(() => import('./pages/Login'));
 const MesCommandes = lazy(() => import('./pages/MesCommandes'));
 const Legal        = lazy(() => import('./pages/Legal'));
 const Warranty     = lazy(() => import('./pages/Warranty'));
@@ -61,21 +60,6 @@ function RouteFallback() {
       <style>{`@keyframes automatik-spin { to { transform: rotate(360deg); } }`}</style>
     </div>
   );
-}
-
-function RequireAuth({ children }) {
-  const { isAuthenticated } = useAuthStore();
-  return isAuthenticated ? children : <Navigate to="/login" replace />;
-}
-function RequireAdmin({ children }) {
-  const { isAuthenticated, user } = useAuthStore();
-  if (!isAuthenticated) return <Navigate to="/login" replace />;
-  if (user?.role !== 'ADMIN') return <Navigate to="/" replace />;
-  return children;
-}
-function GuestOnly({ children }) {
-  const { isAuthenticated } = useAuthStore();
-  return !isAuthenticated ? children : <Navigate to="/" replace />;
 }
 
 function AdminGate({ children }) {
@@ -185,8 +169,6 @@ export default function App() {
         <Route path="/cookies"                   element={<MainLayout><Legal /></MainLayout>} />
 
         {/* Auth */}
-        <Route path="/login"    element={<GuestOnly><MainLayout><Login /></MainLayout></GuestOnly>} />
-
         {/* Espace client (sans compte) */}
         <Route path="/cart"     element={<MainLayout><Cart /></MainLayout>} />
         <Route path="/order-confirm/:orderNumber" element={<MainLayout><OrderConfirm /></MainLayout>} />

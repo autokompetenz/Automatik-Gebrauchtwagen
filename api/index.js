@@ -869,8 +869,12 @@ app.post('/api/orders', (req, res, next) => {
       return res.status(400).json({ error: 'Adresse de livraison requise' });
     }
 
-    // Utilisateur : connecté (req.user) ou invité (email)
+    // Utilisateur : connecté (req.user via token valide) ou invité (email)
     let user = req.user;
+    if (!user && req.headers.authorization) {
+      // Token invalide/expiré — on ne bloque pas le checkout invité, on continue sans auth
+      console.warn('Token ignoré (invalide) pour commande invitée');
+    }
     if (!user) {
       if (!email?.trim()) return res.status(400).json({ error: 'Email requis' });
       const normalized = email.trim().toLowerCase();
