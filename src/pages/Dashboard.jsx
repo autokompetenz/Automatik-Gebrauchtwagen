@@ -232,7 +232,7 @@ export default function Dashboard() {
               <p style={{ fontSize:14, color:'var(--text-3)', flex:1 }}>
                 {lang==='fr'?'Une question ? Contactez-nous sur WhatsApp !':lang==='en'?'A question? Contact us on WhatsApp!':lang==='de'?'Fragen? Schreiben Sie uns auf WhatsApp!':lang==='es'?'¿Una pregunta? ¡Contáctenos por WhatsApp!':lang==='it'?'Una domanda? Contattateci su WhatsApp!':'Uma dúvida? Fale conosco no WhatsApp!'}
               </p>
-              <a href="https://wa.me/491745232945" target="_blank" rel="noopener noreferrer"
+              <a href="https://wa.me/491630436338" target="_blank" rel="noopener noreferrer"
                 style={{ background:'#25D366', color:'#fff', padding:'10px 20px', borderRadius:8, textDecoration:'none', fontFamily:"'Helvetica Neue',Helvetica,Arial,sans-serif", fontWeight:700, fontSize:14, display:'flex', alignItems:'center', gap:8, flexShrink:0 }}>
                 💬 WhatsApp
               </a>

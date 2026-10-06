@@ -32,7 +32,7 @@ export default function Sell() {
 
   const set = (field) => (e) => setForm((prev) => ({ ...prev, [field]: e.target.value }));
 
-  const WA_NUMBER = '491745232945';
+  const WA_NUMBER = '491630436338';
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -154,7 +154,7 @@ export default function Sell() {
             }}>
               {t({ fr:'Estimer mon véhicule', en:'Estimate my vehicle', de:'Fahrzeug bewerten', es:'Estimar mi vehículo', it:'Stima il mio veicolo', pt:'Estimar o meu veículo', ro:'Estimează vehiculul meu' })} →
             </a>
-            <a href="https://wa.me/491745232945" target="_blank" rel="noopener noreferrer" style={{
+            <a href="https://wa.me/491630436338" target="_blank" rel="noopener noreferrer" style={{
               background:'rgba(255,255,255,0.1)', color:'#fff', textDecoration:'none',
               fontFamily:"'Helvetica Neue',Helvetica,Arial,sans-serif", fontSize:14, fontWeight:700, padding:'14px 28px',
               borderRadius:8, border:'1px solid rgba(255,255,255,0.3)', display:'inline-flex', alignItems:'center', gap:8
@@ -385,7 +385,7 @@ export default function Sell() {
               {t({ fr:'Une question sur la vente ?', en:'A question about selling?', de:'Fragen zum Verkauf?', es:'¿Preguntas sobre la venta?', it:'Domande sulla vendita?', pt:'Perguntas sobre a venda?', ro:'Aveți o întrebare despre vânzare?' })}
             </h2>
             <div style={{ display:'flex', gap:12, justifyContent:'center', flexWrap:'wrap' }}>
-              <a href="https://wa.me/491745232945" target="_blank" rel="noopener noreferrer" style={{
+              <a href="https://wa.me/491630436338" target="_blank" rel="noopener noreferrer" style={{
                 background:'#25D366', color:'#fff', textDecoration:'none', fontFamily:"'Helvetica Neue',Helvetica,Arial,sans-serif",
                 fontSize:14, fontWeight:700, padding:'14px 28px', borderRadius:8, display:'inline-flex', alignItems:'center', gap:8,
                 boxShadow:'0 4px 16px rgba(37,211,102,0.3)'

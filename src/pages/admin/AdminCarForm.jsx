@@ -3,7 +3,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { carAPI } from '../../services/api';
 import { useToastStore } from '../../store';
 
-const EMPTY = { make:'', model:'', year:new Date().getFullYear(), price:'', description:'', fuelType:'Essence', transmission:'Automatique', mileage:0, color:'', power:'', category:'Berline', imageUrl:'', imageUrl2:'', imageUrl3:'', imageUrl4:'', imageUrl5:'', imageUrl6:'', imageUrl7:'', imageUrl8:'', imageUrl9:'', imageUrl10:'', imageUrl11:'', imageUrl12:'', imageUrl13:'', imageUrl14:'', imageUrl15:'', imageUrl16:'', imageUrl17:'', imageUrl18:'', imageUrl19:'', imageUrl20:'', minSalary:'', featured:false, promotional:false, isActive:true };
+const EMPTY = { make:'', model:'', year:new Date().getFullYear(), price:'', description:'', fuelType:'Essence', transmission:'Automatique', mileage:0, color:'', power:'', category:'Berline', imageUrl:'', imageUrl2:'', imageUrl3:'', imageUrl4:'', imageUrl5:'', imageUrl6:'', imageUrl7:'', imageUrl8:'', imageUrl9:'', imageUrl10:'', imageUrl11:'', imageUrl12:'', imageUrl13:'', imageUrl14:'', imageUrl15:'', imageUrl16:'', imageUrl17:'', imageUrl18:'', imageUrl19:'', imageUrl20:'', minSalary:'', featured:false, promotional:false, isActive:true, previousOwners:'', accidentFree:false, serviceHistory:false, historyNotes:'' };
 
 function Section({ title, children }) {
   return (
@@ -190,6 +190,10 @@ export default function AdminCarForm() {
       if (form.power !== undefined && form.power !== null) formData.append('power', form.power);
       if (form.category !== undefined && form.category !== null) formData.append('category', form.category);
       if (form.minSalary !== undefined && form.minSalary !== null) formData.append('minSalary', form.minSalary);
+      if (form.previousOwners !== undefined && form.previousOwners !== null && form.previousOwners !== '') formData.append('previousOwners', form.previousOwners);
+      formData.append('accidentFree', form.accidentFree ? 'true' : 'false');
+      formData.append('serviceHistory', form.serviceHistory ? 'true' : 'false');
+      if (form.historyNotes) formData.append('historyNotes', form.historyNotes);
       formData.append('featured', form.featured ? 'true' : 'false');
       formData.append('promotional', form.promotional ? 'true' : 'false');
       formData.append('isActive', form.isActive ? 'true' : 'false');
@@ -262,7 +266,9 @@ export default function AdminCarForm() {
             <Field label="Carburant" field="fuelType" opts={['Essence','Diesel','Electrique','Hybride']} value={form.fuelType} onChange={set("fuelType")} />
             <Field label="Transmission" field="transmission" opts={['Automatique','Manuelle']} value={form.transmission} onChange={set("transmission")} />
             <Field label="Kilométrage" field="mileage" type="number" placeholder="0" value={form.mileage} onChange={set("mileage")} />
+            <Field label="Propriétaires précédents" field="previousOwners" type="number" placeholder="1" value={form.previousOwners} onChange={set("previousOwners")} />
             <Field label="Puissance (hp)" field="power" type="number" placeholder="150" value={form.power} onChange={set("power")} />
+            <Field label="Historique du véhicule (notes)" field="historyNotes" rows={3} placeholder="Carnet d'entretien, contrôle technique, etc." value={form.historyNotes} onChange={set("historyNotes")} />
           </div>
         </Section>
 
@@ -349,7 +355,7 @@ export default function AdminCarForm() {
 
         <Section title="Options">
           <div style={{ display:'flex', gap:28, flexWrap:'wrap' }}>
-            {[['featured','Véhicule vedette (★ Top)'],['promotional','En promotion (🔥 Promo)'],['isActive','Actif (visible en catalogue)']].map(([f,l]) => (
+            {[['featured','Véhicule vedette (★ Top)'],['promotional','En promotion (🔥 Promo)'],['isActive','Actif (visible en catalogue)'],['accidentFree','Sans accident connu'],['serviceHistory','Historique d\'entretien complet']].map(([f,l]) => (
               <label key={f} style={{ display:'flex', alignItems:'center', gap:12, cursor:'pointer', padding:'12px 16px', borderRadius:10, background:'var(--bg-card2)', border:'1px solid var(--border)', transition:'all 0.2s' }}
                 onMouseOver={e => { e.currentTarget.style.borderColor='var(--red-border)'; }}
                 onMouseOut={e => { e.currentTarget.style.borderColor='var(--border)'; }}>

@@ -31,7 +31,7 @@ async function main() {
     create: {
       username: 'max_mustermann', email: 'client@automatikgebrauchtwagen.com',
       password: clientPwd, firstName: 'Max', lastName: 'Mustermann',
-      phone: '+49 157 000 000 00', monthlySalary: 3500, role: 'CLIENT', emailVerified: true,
+      phone: '+49 163 043 63 38', monthlySalary: 3500, role: 'CLIENT', emailVerified: true,
     },
   });
 

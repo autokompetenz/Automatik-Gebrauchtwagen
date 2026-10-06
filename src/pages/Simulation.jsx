@@ -266,7 +266,7 @@ export default function Simulation() {
                   <p style={{ fontSize:15, color:'var(--text-3)', maxWidth:460, margin:'0 auto', lineHeight:1.7 }}>
                     {L.noResultSub[l]} <strong style={{ color:'var(--red)' }}>{formatEuro(result.maxMonthly)}</strong>{L.noResultSub2[l]}
                   </p>
-                  <a href="https://wa.me/491745232945" target="_blank" rel="noopener noreferrer"
+                  <a href="https://wa.me/491630436338" target="_blank" rel="noopener noreferrer"
                     className="btn-primary" style={{ display:'inline-flex', marginTop:24, fontSize:14 }}>
                     💬 {L.contact[l]}
                   </a>

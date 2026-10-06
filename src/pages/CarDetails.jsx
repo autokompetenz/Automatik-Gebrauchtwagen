@@ -4,7 +4,7 @@ import { useParams, useNavigate, Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { carAPI } from '../services/api';
 import { useAuthStore, useCartStore, useToastStore, useLangStore, useThemeStore } from '../store';
-import { formatEuro } from '../utils/helpers';
+import { formatEuro, calculateMonthlyPayment } from '../utils/helpers';
 import { Loader } from '../components/UI';
 import CarCard from '../components/CarCard';
 import Speedometer from '../components/Speedometer';
@@ -39,6 +39,8 @@ export default function CarDetails() {
   const { addToast } = useToastStore();
   const { lang } = useLangStore();
   const { theme } = useThemeStore();
+  const [depositPct, setDepositPct] = useState(25);
+  const [financeMonths, setFinanceMonths] = useState(60);
   const isDark = theme === 'dark';
 
   const [car, setCar] = useState(null);
@@ -49,6 +51,7 @@ export default function CarDetails() {
   const [adding, setAdding] = useState(false);
 
   const SL = SPEC_LABELS[lang] || SPEC_LABELS.fr;
+  const l = lang || 'fr';
   const { isMobile } = useBreakpoint();
 
   // Theme-aware color tokens — computed from isDark
@@ -237,7 +240,7 @@ export default function CarDetails() {
             </h1>
 
             {/* Price */}
-            <div style={{ display: 'flex', alignItems: 'baseline', gap: 16, marginBottom: 32 }}>
+            <div style={{ display: 'flex', alignItems: 'baseline', gap: 16, marginBottom: 16 }}>
               <span style={{ fontFamily: "'Helvetica Neue', Helvetica, Arial, sans-serif", fontWeight: 800, fontSize: 40, color: C.text, letterSpacing: '-0.025em' }}>
                 {formatEuro(car.price)}
               </span>
@@ -247,6 +250,33 @@ export default function CarDetails() {
                 </span>
               )}
             </div>
+
+            {/* Calculateur de financement */}
+            {(() => {
+              const financed = Math.max(0, car.price * (1 - depositPct / 100));
+              const monthly = calculateMonthlyPayment(financed, financeMonths, 0.06);
+              return (
+                <div style={{ background: C.card2, border:'1px solid var(--border)', borderRadius:12, padding: isMobile ? '14px' : '16px 20px', marginBottom: 32 }}>
+                  <p style={{ fontSize:11, fontWeight:800, letterSpacing:'0.25em', textTransform:'uppercase', color:'var(--red)', marginBottom:12 }}>
+                    {l==='fr'?'Simulateur de crédit':l==='en'?'Financing calculator':l==='de'?'Finanzierungsrechner':'Calculadora de financiación'}
+                  </p>
+                  <div style={{ display:'grid', gridTemplateColumns: isMobile ? '1fr' : '1fr 1fr', gap:12, marginBottom:10 }}>
+                    <div>
+                      <label style={{ fontSize:11, color:C.text3, textTransform:'uppercase', letterSpacing:'0.1em' }}>{l==='fr'?'Acompte':l==='en'?'Deposit':l==='de'?'Anzahlung':'Entrada'} ({depositPct}%)</label>
+                      <input type="range" min="0" max="50" value={depositPct} onChange={e => setDepositPct(Number(e.target.value))} style={{ width:'100%' }} />
+                    </div>
+                    <div>
+                      <label style={{ fontSize:11, color:C.text3, textTransform:'uppercase', letterSpacing:'0.1em' }}>{l==='fr'?'Durée':l==='en'?'Term':l==='de'?'Laufzeit':'Plazo'} ({financeMonths} mois)</label>
+                      <input type="range" min="12" max="84" step="12" value={financeMonths} onChange={e => setFinanceMonths(Number(e.target.value))} style={{ width:'100%' }} />
+                    </div>
+                  </div>
+                  <p style={{ fontSize: isMobile ? 20 : 24, fontWeight:800, color:C.text, fontFamily:"'Helvetica Neue',Helvetica,Arial,sans-serif" }}>
+                    ≈ {formatEuro(monthly)}{l==='fr'?'/mois':l==='en'?'/month':l==='de'?'/Monat':'/mes'}
+                    <span style={{ fontSize:12, fontWeight:500, color:C.text3, marginLeft:8 }}>(financement 6%/an, acompte {formatEuro(car.price * depositPct / 100)})</span>
+                  </p>
+                </div>
+              );
+            })()}
 
             {/* Specs grid */}
             <div style={{ display: 'grid', gridTemplateColumns: isMobile ? '1fr' : '1fr 1fr', gap: 10, marginBottom: 28 }}>
@@ -269,6 +299,40 @@ export default function CarDetails() {
                 </div>
               ))}
             </div>
+
+            {/* Historique du véhicule */}
+            {(car.previousOwners != null || car.accidentFree !== undefined || car.serviceHistory !== undefined || car.historyNotes) && (
+              <div style={{ background: C.card2, border:'1px solid var(--border)', borderRadius:12, padding: isMobile ? '16px 14px' : '18px 20px', marginBottom:28 }}>
+                <p style={{ fontSize:11, fontWeight:800, letterSpacing:'0.25em', textTransform:'uppercase', color:'var(--red)', marginBottom:12 }}>
+                  {l==='fr'?'Historique du véhicule':l==='en'?'Vehicle history':l==='de'?'Fahrzeughistorie':'Historial del vehículo'}
+                </p>
+                <div style={{ display:'grid', gridTemplateColumns: isMobile ? '1fr 1fr' : 'repeat(4,1fr)', gap:10 }}>
+                  {car.previousOwners != null && (
+                    <div>
+                      <p style={{ fontSize:10, color:C.text3, textTransform:'uppercase', letterSpacing:'0.1em' }}>{l==='fr'?'Propriétaires':l==='en'?'Previous owners':l==='de'?'Vorbesitzer':'Propietarios'}</p>
+                      <p style={{ fontSize:15, fontWeight:700, color:C.text }}>{car.previousOwners}</p>
+                    </div>
+                  )}
+                  <div>
+                    <p style={{ fontSize:10, color:C.text3, textTransform:'uppercase', letterSpacing:'0.1em' }}>{l==='fr'?'Sans accident':l==='en'?'Accident-free':l==='de'?'Unfallfrei':'Sin accidentes'}</p>
+                    <p style={{ fontSize:15, fontWeight:700, color: car.accidentFree ? '#16A34A' : C.text }}>{car.accidentFree ? '✓' : (l==='fr'?'Inconnu':l==='en'?'Unknown':l==='de'?'Unbekannt':'Desconocido')}</p>
+                  </div>
+                  <div>
+                    <p style={{ fontSize:10, color:C.text3, textTransform:'uppercase', letterSpacing:'0.1em' }}>{l==='fr'?'Entretien suivi':l==='en'?'Service history':l==='de'?'Wartungshistorie':'Historial manten.'}</p>
+                    <p style={{ fontSize:15, fontWeight:700, color: car.serviceHistory ? '#16A34A' : C.text }}>{car.serviceHistory ? '✓' : '—'}</p>
+                  </div>
+                  {car.firstRegistration && (
+                    <div>
+                      <p style={{ fontSize:10, color:C.text3, textTransform:'uppercase', letterSpacing:'0.1em' }}>{l==='fr'?'1ère immatriculation':l==='en'?'First registration':l==='de'?'Erstzulassung':'1ª matricul.'}</p>
+                      <p style={{ fontSize:15, fontWeight:700, color:C.text }}>{new Date(car.firstRegistration).getFullYear()}</p>
+                    </div>
+                  )}
+                </div>
+                {car.historyNotes && (
+                  <p style={{ fontSize:13, color:C.text2, marginTop:12, lineHeight:1.6 }}>{car.historyNotes}</p>
+                )}
+              </div>
+            )}
 
             {/* Informations complémentaires */}
             {car.description && (

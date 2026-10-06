@@ -194,7 +194,7 @@ export default function Track() {
                 <p style={{ fontSize:48, marginBottom:12 }}>❌</p>
                 <p style={{ fontWeight:800, fontSize:20, color:'#EF4444', marginBottom:8 }}>{L.cancelled[l]}</p>
                 <p style={{ fontSize:15, color:'var(--text-3)', marginBottom:20 }}>{L.cancelSub[l]}</p>
-                <a href="https://wa.me/491745232945" target="_blank" rel="noopener noreferrer" className="btn-primary" style={{ display:'inline-flex', fontSize:14 }}>
+                <a href="https://wa.me/491630436338" target="_blank" rel="noopener noreferrer" className="btn-primary" style={{ display:'inline-flex', fontSize:14 }}>
                   💬 {L.contact[l]}
                 </a>
               </div>

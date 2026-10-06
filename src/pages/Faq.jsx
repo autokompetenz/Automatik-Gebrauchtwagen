@@ -222,7 +222,7 @@ export default function Faq() {
               }}>
                 {t({ fr:'Nous contacter', en:'Contact us', de:'Kontakt', es:'Contáctenos', it:'Contattaci', pt:'Fale connosco', ro:'Contactați-ne' })} →
               </Link>
-              <a href="https://wa.me/491745232945" target="_blank" rel="noopener noreferrer" style={{
+              <a href="https://wa.me/491630436338" target="_blank" rel="noopener noreferrer" style={{
                 background:'#25D366', color:'#fff', textDecoration:'none', fontFamily:"'Helvetica Neue',Helvetica,Arial,sans-serif",
                 fontSize:14, fontWeight:700, padding:'14px 28px', borderRadius:8, display:'inline-flex', alignItems:'center', gap:8,
                 boxShadow:'0 4px 16px rgba(37,211,102,0.3)'

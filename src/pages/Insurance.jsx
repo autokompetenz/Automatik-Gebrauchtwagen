@@ -63,7 +63,7 @@ export default function Insurance() {
           <h2 style={{ fontFamily:"'Helvetica Neue',Helvetica,Arial,sans-serif", fontWeight:900, fontSize:36, color:C.text, marginBottom:20 }}>
             {getText({ fr:'Besoin d\'un devis?', en:'Need a quote?', de:'Angebot benötigt?' })}
           </h2>
-          <a href="https://wa.me/491745232945" target="_blank" style={{ background:'#25D366', color:'#fff', textDecoration:'none', padding:'14px 28px', borderRadius:8, fontWeight:700, display:'inline-flex', alignItems:'center', gap:8 }}>
+          <a href="https://wa.me/491630436338" target="_blank" style={{ background:'#25D366', color:'#fff', textDecoration:'none', padding:'14px 28px', borderRadius:8, fontWeight:700, display:'inline-flex', alignItems:'center', gap:8 }}>
             💬 WhatsApp
           </a>
         </div>

@@ -3,8 +3,8 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { useLangStore, useThemeStore } from '../store';
 
-const WA = '+491745232945';
-const WA_DISPLAY = '+49 174 523 29 45';
+const WA = '+491630436338';
+const WA_DISPLAY = '+49 163 043 63 38';
 const EMAIL = 'kontakt@automatikgebrauchtwagen.com';
 const ADDRESS = 'Franz-Julius-Haenel-Str. 3, 06618 Naumburg';
 const SITE_URL = 'automatikgebrauchtwagen.com';
@@ -255,6 +255,9 @@ export default function Chatbot() {
   const [input, setInput]     = useState('');
   const [typing, setTyping]   = useState(false);
   const [notif, setNotif]     = useState(true);
+  const [advisor, setAdvisor] = useState(false);
+  const [advisorForm, setAdvisorForm] = useState({ name:'', email:'', message:'' });
+  const [advisorSent, setAdvisorSent] = useState(false);
   const endRef   = useRef(null);
   const inputRef = useRef(null);
 
@@ -301,6 +304,23 @@ export default function Chatbot() {
       setMsgs(m => [...m, { from: 'bot', text: reply, topic: nextTopic }]);
     }, 350 + Math.random() * 250);
   }, [input, localR]);
+
+  const submitAdvisor = useCallback(async (e) => {
+    e.preventDefault();
+    if (!advisorForm.name.trim() || (!advisorForm.email.trim() && !advisorForm.message.trim())) return;
+    try {
+      await fetch('/api/leads', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ type: 'contact', name: advisorForm.name, email: advisorForm.email, message: advisorForm.message || 'Demande via chatbot' }),
+      });
+      setAdvisorSent(true);
+      setMsgs(m => [...m, { from: 'bot', text: L==='fr' ? 'Merci ! Un conseiller vous recontactera rapidement par email.' : L==='en' ? 'Thanks! An advisor will contact you shortly by email.' : L==='de' ? 'Danke! Ein Berater meldet sich bald per E-Mail.' : '¡Gracias! Un asesor le contactará pronto por email.', topic: 'contact' }]);
+      setAdvisor(false);
+    } catch {
+      setMsgs(m => [...m, { from: 'bot', text: L==='fr' ? "Erreur lors de l'envoi. Réessayez ou contactez-nous par WhatsApp." : 'Error sending. Please retry or contact us via WhatsApp.', topic: 'contact' }]);
+    }
+  }, [advisorForm, L]);
 
   const currentQuickButtons = (() => {
     const labels = followUps[topic] || followUps.default || [];
@@ -405,8 +425,30 @@ export default function Chatbot() {
           </div>
         )}
 
+        {/* Advisor button */}
+        {!advisor && (
+          <div style={{ padding: '6px 12px', background: winBg, borderTop: `1px solid ${footerBord}` }}>
+            <button onClick={() => setAdvisor(true)}
+              style={{ fontSize:12, fontWeight:700, color:'var(--red)', background:'transparent', border:'1px solid var(--red-border)', borderRadius:8, padding:'7px 12px', cursor:'pointer', width:'100%' }}>
+              🧑‍💼 {L==='fr'?'Parler à un conseiller':L==='en'?'Talk to an advisor':L==='de'?'Mit einem Berater sprechen':'Hablar con un asesor'}
+            </button>
+          </div>
+        )}
+
         {/* Input */}
-        <div style={{ display: 'flex', gap: 6, padding: '10px 12px', borderTop: `1px solid ${footerBord}`, background: footerBg, flexShrink: 0 }}>
+        <div style={{ display: advisor ? 'block' : 'flex', gap: 6, padding: '10px 12px', borderTop: `1px solid ${footerBord}`, background: footerBg, flexShrink: 0 }}>
+          {advisor ? (
+            <form onSubmit={submitAdvisor} style={{ display:'flex', flexDirection:'column', gap:8 }}>
+              <input value={advisorForm.name} onChange={e => setAdvisorForm({...advisorForm, name: e.target.value})} placeholder={L==='fr'?'Votre nom *':L==='en'?'Your name *':L==='de'?'Ihr Name *':'Su nombre *'} className="input-luxury" style={{ fontSize:14, padding:'10px 12px' }} />
+              <input value={advisorForm.email} onChange={e => setAdvisorForm({...advisorForm, email: e.target.value})} placeholder={L==='fr'?'Votre email *':L==='en'?'Your email *':L==='de'?'Ihre E-Mail *':'Su email *'} className="input-luxury" style={{ fontSize:14, padding:'10px 12px' }} />
+              <textarea value={advisorForm.message} onChange={e => setAdvisorForm({...advisorForm, message: e.target.value})} placeholder={L==='fr'?'Votre message...':L==='en'?'Your message...':L==='de'?'Ihre Nachricht...':'Su mensaje...'} className="input-luxury" rows={3} style={{ fontSize:14, padding:'10px 12px' }} />
+              <div style={{ display:'flex', gap:8 }}>
+                <button type="button" onClick={() => setAdvisor(false)} style={{ flex:1, padding:'10px', borderRadius:8, border:'1px solid var(--border)', background:'transparent', cursor:'pointer', fontSize:13 }}>{L==='fr'?'Annuler':L==='en'?'Cancel':L==='de'?'Abbrechen':'Cancelar'}</button>
+                <button type="submit" style={{ flex:2, padding:'10px', borderRadius:8, border:'none', background:'#132853', color:'#fff', fontWeight:700, cursor:'pointer', fontSize:13 }}>{L==='fr'?'Envoyer au conseiller':L==='en'?'Send to advisor':L==='de'?'Senden':'Enviar'}</button>
+              </div>
+            </form>
+          ) : (
+          <>
           <input
             ref={inputRef}
             value={input}
@@ -433,6 +475,8 @@ export default function Chatbot() {
             }}>
             ➤
           </button>
+          </>
+          )}
         </div>
       </div>
     </>

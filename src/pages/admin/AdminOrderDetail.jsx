@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import { orderAPI } from '../../services/api';
+import { orderAPI, bankAPI } from '../../services/api';
 import { useToastStore } from '../../store';
 import { formatEuro, formatDate, timeAgo } from '../../utils/helpers';
 import { StatusBadge, Loader } from '../../components/UI';
@@ -22,11 +22,15 @@ export default function AdminOrderDetail() {
   const [paySaving, setPaySaving] = useState(false);
   const [addOpen, setAddOpen] = useState(false);
   const [addForm, setAddForm] = useState({ type:'monthly', amount:'', dueDate:'' });
+  const [bankInfo, setBankInfo] = useState({ iban:'', bic:'', beneficiary:'AUTOMATIK GEBRAUCHTWAGEN', transferType:'SEPA' });
 
   const load = () => {
     orderAPI.getAdminDetail(id)
       .then(r => { setOrder(r.data.order); setNewStatus(r.data.order.status); setLoading(false); })
       .catch(() => setLoading(false));
+    bankAPI.getAdmin()
+      .then(r => setBankInfo({ iban: r.data.bank?.iban || '', bic: r.data.bank?.bic || '', beneficiary: r.data.bank?.beneficiary || 'AUTOMATIK GEBRAUCHTWAGEN', transferType: r.data.bank?.transferType || 'SEPA' }))
+      .catch(() => {});
   };
   useEffect(load, [id]);
 
@@ -74,7 +78,7 @@ export default function AdminOrderDetail() {
     e.preventDefault();
     setSaving(true);
     try {
-      const { data } = await orderAPI.updateStatus(id, { status: newStatus, comment });
+      const { data } = await orderAPI.updateStatus(id, { status: newStatus, comment, bankInfo });
       if (data.emailSent) {
         addToast('Mise à jour enregistrée. Un e-mail a été envoyé au client.', 'success');
       } else {
@@ -335,6 +339,24 @@ export default function AdminOrderDetail() {
               </label>
               <textarea value={comment} onChange={e => setComment(e.target.value)} rows={4}
                 placeholder="Ex : Votre véhicule est prêt pour la livraison..." className="input-luxury" style={{ resize:'none', fontSize:14 }} />
+            </div>
+
+            <div style={{ marginBottom:18 }}>
+              <label style={{ display:'block', fontSize:11, fontWeight:700, letterSpacing:'0.14em', textTransform:'uppercase', color:'var(--text-3)', marginBottom:8 }}>
+                💳 Coordonnées de paiement (confirmées à la validation)
+              </label>
+              <div style={{ display:'grid', gridTemplateColumns:'1fr', gap:8 }}>
+                <input value={bankInfo.beneficiary} onChange={e => setBankInfo({...bankInfo, beneficiary: e.target.value})} placeholder="Titulaire" className="input-luxury" style={{ fontSize:14 }} />
+                <input value={bankInfo.iban} onChange={e => setBankInfo({...bankInfo, iban: e.target.value})} placeholder="IBAN" className="input-luxury" style={{ fontSize:14 }} />
+                <input value={bankInfo.bic} onChange={e => setBankInfo({...bankInfo, bic: e.target.value})} placeholder="BIC" className="input-luxury" style={{ fontSize:14 }} />
+                <select value={bankInfo.transferType} onChange={e => setBankInfo({...bankInfo, transferType: e.target.value})} className="input-luxury" style={{ fontSize:14 }}>
+                  <option value="SEPA">SEPA</option>
+                  <option value="SWIFT">SWIFT</option>
+                </select>
+              </div>
+              <p style={{ fontSize:12, color:'var(--text-3)', marginTop:6 }}>
+                Ces coordonnées sont enregistrées et envoyées au client dans l'e-mail de confirmation.
+              </p>
             </div>
 
             <button type="submit" disabled={saving} className="btn-primary" style={{ width:'100%', justifyContent:'center', padding:14, fontSize:14 }}>

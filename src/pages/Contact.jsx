@@ -28,7 +28,7 @@ export default function Contact() {
 
   const set = (field) => (e) => setForm((prev) => ({ ...prev, [field]: e.target.value }));
 
-  const WA_NUMBER = '491745232945';
+  const WA_NUMBER = '491630436338';
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -76,9 +76,9 @@ export default function Contact() {
 
   const contactCards = [
     { icon: '📍', title: t({ fr:'Adresse', en:'Address', de:'Adresse', es:'Dirección', it:'Indirizzo', pt:'Morada', ro:'Adresă' }), lines: ['Franz-Julius-Haenel-Str. 3', '06618 Naumburg, Allemagne'] },
-    { icon: '📞', title: t({ fr:'Téléphone', en:'Phone', de:'Telefon', es:'Teléfono', it:'Telefono', pt:'Telefone', ro:'Telefon' }), lines: ['+49 174 523 29 45', t({ fr:'Lun–Ven 9h–18h', en:'Mon–Fri 9am–6pm', de:'Mo–Fr 9–18 Uhr', es:'Lun–Vie 9–18h', it:'Lun–Ven 9–18', pt:'Seg–Sex 9–18h', ro:'Lun–Vin 9–18h' })] },
+    { icon: '📞', title: t({ fr:'Téléphone', en:'Phone', de:'Telefon', es:'Teléfono', it:'Telefono', pt:'Telefone', ro:'Telefon' }), lines: ['+49 163 043 63 38', t({ fr:'Lun–Ven 9h–18h', en:'Mon–Fri 9am–6pm', de:'Mo–Fr 9–18 Uhr', es:'Lun–Vie 9–18h', it:'Lun–Ven 9–18', pt:'Seg–Sex 9–18h', ro:'Lun–Vin 9–18h' })] },
     { icon: '✉', title: t({ fr:'Email', en:'Email', de:'E-Mail', es:'Email', it:'Email', pt:'Email', ro:'Email' }), lines: ['kontakt@automatikgebrauchtwagen.com', t({ fr:'Réponse sous 24h', en:'Reply within 24h', de:'Antwort innerhalb von 24h', es:'Respuesta en 24h', it:'Risposta entro 24h', pt:'Resposta em 24h', ro:'Răspuns în 24h' })] },
-    { icon: '💬', title: 'WhatsApp', lines: ['+49 174 523 29 45', t({ fr:'Réponse immédiate', en:'Immediate reply', de:'Sofortige Antwort', es:'Respuesta inmediata', it:'Risposta immediata', pt:'Resposta imediata', ro:'Răspuns imediat' })] },
+    { icon: '💬', title: 'WhatsApp', lines: ['+49 163 043 63 38', t({ fr:'Réponse immédiate', en:'Immediate reply', de:'Sofortige Antwort', es:'Respuesta inmediata', it:'Risposta immediata', pt:'Resposta imediata', ro:'Răspuns imediat' })] },
   ];
 
   const subjects = [
@@ -255,13 +255,18 @@ export default function Contact() {
                 style={{ textDecoration:'none', display:'block', borderRadius:20, overflow:'hidden', border:`1px solid ${C.border}`, boxShadow:C.shadow }}
               >
                 <div style={{
-                  height:220, background:'linear-gradient(135deg,#132853,#0E1E3D)', position:'relative',
+                  height:220, position:'relative',
                   display:'flex', alignItems:'center', justifyContent:'center'
                 }}>
-                  <span style={{ fontSize:48, opacity:0.9 }}>🗺️</span>
+                  <iframe
+                    title="Carte"
+                    width="100%" height="220" style={{ border:0, position:'absolute', inset:0 }}
+                    loading="lazy" allowFullScreen
+                    src="https://www.openstreetmap.org/export/embed.html?bbox=11.74%2C51.145%2C11.805%2C51.165&layer=mapnik&marker=51.155%2C11.773"
+                  />
                   <span style={{
-                    position:'absolute', bottom:18, left:0, right:0, textAlign:'center',
-                    color:'#fff', fontFamily:"'Helvetica Neue',Helvetica,Arial,sans-serif", fontSize:13, fontWeight:700, letterSpacing:'0.08em'
+                    position:'absolute', bottom:18, left:0, right:0, textAlign:'center', zIndex:1,
+                    color:'#fff', fontFamily:"'Helvetica Neue',Helvetica,Arial,sans-serif", fontSize:13, fontWeight:700, letterSpacing:'0.08em', textShadow:'0 1px 4px rgba(0,0,0,0.6)'
                   }}>
                     Franz-Julius-Haenel-Str. 3, 06618 Naumburg
                   </span>
@@ -284,7 +289,7 @@ export default function Contact() {
             <h2 style={{ fontFamily:"'Helvetica Neue',Helvetica,Arial,sans-serif", fontWeight:900, fontSize: isMobile ? 32 : 42, color:'#fff', letterSpacing:'-0.02em', marginBottom:20 }}>
               {t({ fr:'Besoin d\'une réponse immédiate ?', en:'Need an immediate answer?', de:'Brauchen Sie eine sofortige Antwort?', es:'¿Necesita una respuesta inmediata?', it:'Serve una risposta immediata?', pt:'Precisa de uma resposta imediata?', ro:'Aveți nevoie de un răspuns imediat?' })}
             </h2>
-            <a href="https://wa.me/491745232945" target="_blank" rel="noopener noreferrer" style={{
+            <a href="https://wa.me/491630436338" target="_blank" rel="noopener noreferrer" style={{
               background:'#25D366', color:'#fff', textDecoration:'none', fontFamily:"'Helvetica Neue',Helvetica,Arial,sans-serif",
               fontSize:15, fontWeight:700, padding:'16px 32px', borderRadius:10, display:'inline-flex', alignItems:'center', gap:10,
               boxShadow:'0 4px 16px rgba(37,211,102,0.3)'

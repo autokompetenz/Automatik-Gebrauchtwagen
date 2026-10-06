@@ -83,6 +83,12 @@ function parseCarFormBody(data) {
     promotional: data.promotional === 'true' || data.promotional === true,
     isActive: data.isActive !== 'false' && data.isActive !== false,
     monthlyPayment: Number.isFinite(price) && price > 0 ? calculateMonthlyPayment(price * 0.75) : null,
+    previousOwners: data.previousOwners ? Number(data.previousOwners) : null,
+    accidentFree: data.accidentFree === 'true' || data.accidentFree === true,
+    serviceHistory: data.serviceHistory === 'true' || data.serviceHistory === true,
+    firstRegistration: data.firstRegistration ? new Date(data.firstRegistration) : null,
+    lastInspection: data.lastInspection ? new Date(data.lastInspection) : null,
+    historyNotes: data.historyNotes || null,
   };
   for (let i = 1; i <= 20; i++) {
     const key = i === 1 ? 'imageUrl' : `imageUrl${i}`;
@@ -1152,10 +1158,35 @@ app.get('/api/orders/track/:orderNumber', async (req, res) => {
 app.patch('/api/orders/:id', authenticateToken, requireAdmin, async (req, res) => {
   try {
     const { id } = req.params;
-    const { status, comment } = req.body;
+    const { status, comment, bankInfo } = req.body;
     const validStatuses = ['pending','confirmed','processing','shipped','delivered','cancelled'];
     if (!validStatuses.includes(status)) {
       return res.status(400).json({ error: 'Statut invalide' });
+    }
+
+    // Admin peut confirmer/ajuster les coordonnées de paiement à la validation
+    if (bankInfo && (bankInfo.iban !== undefined || bankInfo.bic !== undefined || bankInfo.beneficiary !== undefined || bankInfo.transferType !== undefined)) {
+      const existing = await prisma.bankInfo.findFirst();
+      if (existing) {
+        await prisma.bankInfo.update({
+          where: { id: existing.id },
+          data: {
+            iban: bankInfo.iban ?? existing.iban,
+            bic: bankInfo.bic ?? existing.bic,
+            beneficiary: bankInfo.beneficiary ?? existing.beneficiary,
+            transferType: bankInfo.transferType ?? existing.transferType,
+          },
+        });
+      } else {
+        await prisma.bankInfo.create({
+          data: {
+            iban: bankInfo.iban || '',
+            bic: bankInfo.bic || '',
+            beneficiary: bankInfo.beneficiary || 'AUTOMATIK GEBRAUCHTWAGEN',
+            transferType: bankInfo.transferType || 'SEPA',
+          },
+        });
+      }
     }
     
     // Get current order to check if status changed
@@ -1178,6 +1209,7 @@ app.patch('/api/orders/:id', authenticateToken, requireAdmin, async (req, res) =
     // Send email if status changed or if there's a comment
     let emailSent = false;
     if (statusChanged || comment) {
+      const freshBank = await getBankInfo();
       sendOrderStatusUpdateEmail({
         email: currentOrder.user.email,
         firstName: currentOrder.user.firstName,
@@ -1185,6 +1217,7 @@ app.patch('/api/orders/:id', authenticateToken, requireAdmin, async (req, res) =
         status,
         comment,
         statusChanged,
+        bank: status === 'confirmed' ? freshBank : undefined,
       }).catch(err => console.error('Order status update email error:', err));
       emailSent = true;
     }

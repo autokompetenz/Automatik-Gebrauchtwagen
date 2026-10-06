@@ -246,7 +246,7 @@ export default function About() {
               {t({ fr:'Notre équipe vous accompagne dans le choix de votre prochain véhicule, de la première visite à la livraison.', en:'Our team supports you in choosing your next vehicle, from first visit to delivery.', de:'Unser Team begleitet Sie bei der Wahl Ihres nächsten Fahrzeugs.', es:'Nuestro equipo le acompaña en la elección de su próximo vehículo.', it:'Il nostro team vi accompagna nella scelta del vostro prossimo veicolo.', pt:'A nossa equipa acompanha-o na escolha do seu próximo veículo.', ro:'Echipa noastră vă însoțește în alegerea următorului vehicul, de la prima vizită până la livrare.' })}
             </p>
             <div style={{ display:'flex', gap:12, flexWrap:'wrap' }}>
-              <a href="https://wa.me/491745232945" target="_blank" rel="noopener noreferrer" style={{ background:'#25D366', color:'#fff', textDecoration:'none', fontFamily:"'Helvetica Neue',Helvetica,Arial,sans-serif", fontSize:14, fontWeight:700, padding:'13px 26px', borderRadius:8 }}>
+              <a href="https://wa.me/491630436338" target="_blank" rel="noopener noreferrer" style={{ background:'#25D366', color:'#fff', textDecoration:'none', fontFamily:"'Helvetica Neue',Helvetica,Arial,sans-serif", fontSize:14, fontWeight:700, padding:'13px 26px', borderRadius:8 }}>
                 💬 WhatsApp
               </a>
               <Link to="/contact" style={{ background:'transparent', color:'#fff', textDecoration:'none', fontFamily:"'Helvetica Neue',Helvetica,Arial,sans-serif", fontSize:14, fontWeight:700, padding:'13px 26px', borderRadius:8, border:'1px solid rgba(255,255,255,0.3)' }}>

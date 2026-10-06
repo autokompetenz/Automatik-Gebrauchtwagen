@@ -124,6 +124,13 @@ model Car {
   promotional    Boolean      @default(false)
   isActive       Boolean      @default(true)
   createdAt      DateTime     @default(now())
+  // Historique du véhicule (carfax)
+  previousOwners Int?
+  accidentFree   Boolean      @default(false)
+  serviceHistory Boolean      @default(false)
+  firstRegistration DateTime?
+  lastInspection DateTime?
+  historyNotes   String?      @db.Text
 
   orderItems OrderItem[]
   cartItems  Cart[]
