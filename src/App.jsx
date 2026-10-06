@@ -27,6 +27,7 @@ const Sell         = lazy(() => import('./pages/Sell'));
 const Contact      = lazy(() => import('./pages/Contact'));
 const Faq          = lazy(() => import('./pages/Faq'));
 const About        = lazy(() => import('./pages/About'));
+const Blog         = lazy(() => import('./pages/Blog'));
 const Brands       = lazy(() => import('./pages/Brands'));
 const Delivery     = lazy(() => import('./pages/Delivery'));
 const Maintenance  = lazy(() => import('./pages/Maintenance'));
@@ -137,6 +138,7 @@ export default function App() {
         <Route path="/contact"     element={<MainLayout><Contact /></MainLayout>} />
         <Route path="/faq"         element={<MainLayout><Faq /></MainLayout>} />
         <Route path="/a-propos"    element={<MainLayout><About /></MainLayout>} />
+        <Route path="/blog"        element={<MainLayout><Blog /></MainLayout>} />
         <Route path="/marques"     element={<MainLayout><Brands /></MainLayout>} />
         <Route path="/livraison"   element={<MainLayout><Delivery /></MainLayout>} />
         <Route path="/maintenance" element={<MainLayout><Maintenance /></MainLayout>} />

@@ -184,6 +184,7 @@ export default function Navbar() {
                       { to: '/maintenance', label: t('nav_maintenance', lang),   icon: '🔧' },
                       { to: '/faq',         label: t('nav_faq', lang),           icon: '❓' },
                       { to: '/a-propos',    label: t('nav_about', lang),         icon: '🏛️' },
+                      { to: '/blog',        label: 'Blog',                 icon: '📰' },
                       { to: '/avis',        label: t('reviews_label', lang),     icon: '⭐' },
                     ].map(({ to, label, icon }) => (
                       <Link key={to} to={to} onClick={() => setPlusOpen(false)}
@@ -306,6 +307,7 @@ export default function Navbar() {
                         { to: '/warranty',    icon: '🛡️', label: t('nav_warranty', lang) || 'Garantie' },
                         { to: '/contact',     icon: '📞', label: t('nav_contact', lang) },
                         { to: '/faq',         icon: '❓', label: t('nav_faq', lang) },
+                        { to: '/blog',        icon: '📰', label: 'Blog' },
                         { to: '/track',       icon: '📍', label: t('nav_track', lang) },
                       ].map(({ to, icon, label }) => (
                         <Link key={to} to={to} onClick={() => setMenuOpen(false)}
