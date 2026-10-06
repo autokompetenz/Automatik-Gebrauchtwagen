@@ -1,4 +1,4 @@
-import { lazy, Suspense, useEffect } from 'react';
+import { lazy, Suspense, useEffect, useState } from 'react';
 import { BrowserRouter, Routes, Route, Navigate, useLocation } from 'react-router-dom';
 import { useAuthStore, useLangStore } from './store/index';
 import { t } from './utils/i18n';
@@ -76,6 +76,41 @@ function RequireAdmin({ children }) {
 function GuestOnly({ children }) {
   const { isAuthenticated } = useAuthStore();
   return !isAuthenticated ? children : <Navigate to="/" replace />;
+}
+
+function AdminGate({ children }) {
+  const { isAuthenticated, user, login } = useAuthStore();
+  const [code, setCode] = useState('');
+  const [error, setError] = useState('');
+  const [loading, setLoading] = useState(false);
+
+  if (isAuthenticated && user?.role === 'ADMIN') return children;
+
+  const submit = async (e) => {
+    e.preventDefault();
+    setError('');
+    setLoading(true);
+    try {
+      const r = await fetch('/api/admin/login', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ code }) });
+      const d = await r.json();
+      if (!r.ok) { setError(d.error || 'Erreur'); setLoading(false); return; }
+      login(d.user, d.token);
+    } catch { setError('Erreur'); }
+    finally { setLoading(false); }
+  };
+
+  return (
+    <div style={{ minHeight:'100vh', display:'flex', alignItems:'center', justifyContent:'center', background:'var(--bg)' }}>
+      <form onSubmit={submit} style={{ background:'var(--bg-card)', border:'1px solid var(--border)', borderRadius:16, padding:36, width:'92%', maxWidth:380, textAlign:'center' }}>
+        <div style={{ fontSize:36, marginBottom:10 }}>🔒</div>
+        <h2 style={{ fontFamily:"'Helvetica Neue',Helvetica,Arial,sans-serif", fontWeight:800, fontSize:22, color:'var(--text)', marginBottom:6 }}>Accès administrateur</h2>
+        <p style={{ fontSize:14, color:'var(--text-3)', marginBottom:20 }}>Entrez le code d'accès pour continuer.</p>
+        <input type="password" value={code} onChange={e => setCode(e.target.value)} autoFocus className="input-luxury" placeholder="Code d'accès" style={{ marginBottom:14, textAlign:'center', letterSpacing:'0.1em' }} />
+        <button type="submit" className="btn-primary" disabled={loading} style={{ width:'100%', justifyContent:'center', padding:13 }}>{loading ? '⏳' : 'Accéder'}</button>
+        {error && <p style={{ color:'#DC2626', fontSize:13, marginTop:10 }}>{error}</p>}
+      </form>
+    </div>
+  );
 }
 function MainLayout({ children }) {
   const paddingBottom = useClientBottomNavPadding();
@@ -158,7 +193,7 @@ export default function App() {
         <Route path="/mes-commandes" element={<MainLayout><MesCommandes /></MainLayout>} />
 
         {/* Admin */}
-        <Route path="/admin" element={<RequireAdmin><AdminLayout /></RequireAdmin>}>
+        <Route path="/admin" element={<AdminGate><AdminLayout /></AdminGate>}>
           <Route index            element={<AdminDashboard />} />
           <Route path="orders"    element={<AdminOrders />} />
           <Route path="orders/:id"element={<AdminOrderDetail />} />

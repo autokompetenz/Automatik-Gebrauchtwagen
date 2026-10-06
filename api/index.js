@@ -270,6 +270,31 @@ app.post('/api/auth/login', async (req, res) => {
   }
 });
 
+app.post('/api/admin/login', async (req, res) => {
+  try {
+    const { code } = req.body || {};
+    if (!process.env.ADMIN_CODE || !code || code !== process.env.ADMIN_CODE) {
+      return res.status(401).json({ error: 'Code invalide' });
+    }
+    // Premier compte admin (créé par le seed)
+    const user = await prisma.user.findFirst({ where: { role: 'ADMIN' } });
+    if (!user) return res.status(404).json({ error: 'Aucun compte admin configuré' });
+    const token = jwt.sign({ userId: user.id }, process.env.JWT_SECRET, { expiresIn: '7d' });
+    res.json({
+      message: 'Connexion réussie',
+      token,
+      user: {
+        id: user.id, username: user.username, email: user.email,
+        firstName: user.firstName, lastName: user.lastName, role: user.role,
+        phone: user.phone, address: user.address, monthlySalary: user.monthlySalary,
+      }
+    });
+  } catch (e) {
+    console.error('Admin login error:', e);
+    res.status(500).json({ error: 'Erreur serveur' });
+  }
+});
+
 app.post('/api/auth/register', async (req, res) => {
   try {
     const { username, email, password, firstName, lastName, phone, monthlySalary } = req.body;
