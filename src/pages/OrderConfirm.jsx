@@ -19,7 +19,7 @@ export default function OrderConfirm() {
 
   useEffect(() => {
     Promise.all([
-      orderAPI.getByNumber(orderNumber),
+      orderAPI.track(orderNumber),
       bankAPI.get().catch(() => null),
     ])
       .then(([orderRes, bankRes]) => {
