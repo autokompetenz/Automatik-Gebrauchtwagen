@@ -1002,7 +1002,7 @@ app.post('/api/orders', (req, res, next) => {
         firstName: req.user.firstName,
         order: { ...order, createdAt: order.createdAt || new Date() },
         items: cartItems.map(i => ({ car: i.car, unitPrice: i.car.price, quantity: i.quantity })),
-        bank,
+        // L'adresse de paiement est communiquée uniquement après validation (email 'confirmed')
       });
     } catch (err) {
       console.error('Order confirmation email error:', err);
