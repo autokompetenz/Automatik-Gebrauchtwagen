@@ -34,7 +34,6 @@ export default function Track() {
   const { lang } = useLangStore();
   const { isMobile } = useBreakpoint();
   const [input, setInput] = useState(paramNum || '');
-  const [emailInput, setEmailInput] = useState(sessionStorage.getItem('ak_order_email') || '');
   const [emailResults, setEmailResults] = useState(null);
   const [emailError, setEmailError] = useState('');
   const [order, setOrder] = useState(null);
@@ -64,12 +63,12 @@ export default function Track() {
 
   useState(() => { if (paramNum) fetchOrder(paramNum); }, []);
 
-  const handleEmailSearch = async (e) => {
-    e.preventDefault();
-    if (!emailInput.trim()) return;
+  const handleEmailSearch = async (val) => {
+    const email = (val || input).trim();
+    if (!email) return;
     try {
       setEmailError('');
-      const r = await orderAPI.byEmail(emailInput.trim());
+      const r = await orderAPI.byEmail(email);
       setEmailResults(Array.isArray(r.data) ? r.data : []);
     } catch {
       setEmailError(l==='fr'?'Aucune commande trouvée.':l==='en'?'No orders found.':'No orders found.');
@@ -79,7 +78,16 @@ export default function Track() {
 
   const handleSearch = (e) => {
     e.preventDefault();
-    if (input.trim()) { navigate(`/track/${input.trim().toUpperCase()}`, { replace:true }); fetchOrder(input.trim()); }
+    const val = input.trim();
+    if (!val) return;
+
+    if (val.includes('@')) {
+      handleEmailSearch(val);
+    } else {
+      setEmailResults(null);
+      navigate(`/track/${val.toUpperCase()}`, { replace:true });
+      fetchOrder(val.toUpperCase());
+    }
   };
 
   const currentStep = order ? STATUS_STEPS.indexOf(order.status) : -1;
@@ -141,8 +149,8 @@ export default function Track() {
             {L.title[l]}
           </h1>
           <form onSubmit={handleSearch} style={{ display:'flex', gap:12, maxWidth:520, flexWrap: isMobile ? 'wrap' : 'nowrap' }}>
-            <input value={input} onChange={e => setInput(e.target.value.toUpperCase())}
-              placeholder={L.sub[l]}
+            <input value={input} onChange={e => setInput(e.target.value)}
+              placeholder={L.sub[l] + ' ' + (l==='fr'?'(ou votre email)' : l==='en'?'(or your email)' : l==='de'?'(oder Ihre E-Mail)' : '(o tu email)')}
               className="input-luxury"
               style={{ flex:1, fontFamily:'monospace', letterSpacing:'0.08em', fontSize: isMobile ? 14 : 16, minWidth:0 }} />
             <button type="submit" className="btn-primary" style={{ padding:'13px 24px', flexShrink:0, fontSize:14, whiteSpace:'nowrap' }}>
@@ -150,16 +158,6 @@ export default function Track() {
             </button>
           </form>
 
-          {/* Recherche par email */}
-          <form onSubmit={handleEmailSearch} style={{ display:'flex', gap:12, maxWidth:520, marginTop:14, flexWrap: isMobile ? 'wrap' : 'nowrap' }}>
-            <input value={emailInput} onChange={e => setEmailInput(e.target.value)} type="email"
-              placeholder={l==='fr'?'Ou rechercher par email...':l==='en'?'Or search by email...':l==='de'?'Oder per E-Mail suchen...':l==='es'?'O busca por email...':l==='it'?'O cerca per email...':'O busque por email...'}
-              className="input-luxury"
-              style={{ flex:1, fontSize: isMobile ? 14 : 16, minWidth:0 }} />
-            <button type="submit" className="btn-ghost" style={{ padding:'13px 24px', flexShrink:0, fontSize:14, whiteSpace:'nowrap' }}>
-              {l==='fr'?'Mes commandes':l==='en'?'My orders':l==='de'?'Meine Bestellungen':l==='es'?'Mis pedidos':l==='it'?'I miei ordini':'Meus pedidos'}
-            </button>
-          </form>
           {emailError && <p style={{ color:'#EF4444', fontSize:13, marginTop:10 }}>{emailError}</p>}
           {emailResults !== null && (
             <div style={{ marginTop:14, maxWidth:520 }}>
