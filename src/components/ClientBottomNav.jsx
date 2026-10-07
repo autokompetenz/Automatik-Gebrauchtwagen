@@ -1,12 +1,11 @@
 import { Link, useLocation } from 'react-router-dom';
-import { useAuthStore, useLangStore, useCartStore } from '../store';
+import { useAuthStore, useLangStore } from '../store';
 import { useBreakpoint } from '../hooks/useBreakpoint';
 import { t } from '../utils/i18n';
 
 function pathMatchesClientNav(pathname) {
   if (/^\/dashboard\/?$/.test(pathname)) return true;
   if (/^\/mes-commandes\/?$/.test(pathname)) return true;
-  if (/^\/cart\/?$/.test(pathname)) return true;
   if (/^\/simulation\/?$/.test(pathname)) return true;
   if (/^\/order-confirm\//.test(pathname)) return true;
   if (/^\/track/.test(pathname)) return true;
@@ -24,7 +23,6 @@ export function useClientBottomNavPadding() {
 export default function ClientBottomNav() {
   const { pathname } = useLocation();
   const { lang } = useLangStore();
-  const { cartCount } = useCartStore();
   const { isMobile } = useBreakpoint();
   const l = lang || 'fr';
 
@@ -33,7 +31,6 @@ export default function ClientBottomNav() {
   const items = [
     { to: '/catalog', label: t('nav_vehicles', l), icon: '🚗', match: (p) => p === '/catalog' },
     { to: '/mes-commandes', label: l==='fr'?'Commandes':l==='en'?'Orders':l==='de'?'Bestellungen':'Pedidos', icon: '📦', match: (p) => p === '/mes-commandes' },
-    { to: '/cart', label: t('nav_cart', l), icon: '🛒', match: (p) => p === '/cart', badge: cartCount },
     { to: '/simulation', label: t('nav_financing', l), icon: '🧮', match: (p) => p === '/simulation' },
     { to: '/track', label: t('nav_track', l) || 'Suivi', icon: '📍', match: (p) => p.startsWith('/track') },
   ];

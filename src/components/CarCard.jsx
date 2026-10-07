@@ -18,13 +18,7 @@ export default function CarCard({ car, index = 0 }) {
   const handleAddToCart = async (e) => {
     e.preventDefault();
     e.stopPropagation();
-    try {
-      setAdding(true);
-      await addItem(car, 'full');
-      addToast(`${car.make} ${car.model} — ${t('add_to_cart', l)} ✓`, 'success');
-    } catch (err) {
-      addToast(err.response?.data?.error || 'Error', 'error');
-    } finally { setAdding(false); }
+    navigate(`/commander/${car.id}`);
   };
 
   return (
@@ -107,7 +101,7 @@ export default function CarCard({ car, index = 0 }) {
             style={{ padding:'10px 18px', borderRadius:8, fontSize:11, fontWeight:700, letterSpacing:'0.08em', textTransform:'uppercase', cursor:'pointer', border:'1px solid', fontFamily:"'Helvetica Neue',Helvetica,Arial,sans-serif", transition:'all 0.3s', borderColor:'var(--red)', background:adding?'rgba(19,40,83,0.08)':'transparent', color:'var(--red)', flexShrink:0 }}
             onMouseOver={e=>{ if(!adding) { e.currentTarget.style.background='var(--red)'; e.currentTarget.style.color='#fff'; }}}
             onMouseOut={e=>{ if(!adding) { e.currentTarget.style.background='transparent'; e.currentTarget.style.color='var(--red)'; }}}>
-            {adding?'...':'+ '+t('add_to_cart',l).split(' ')[0]}
+            {adding?'...':(l==='fr'?'Commander':l==='en'?'Order':l==='de'?'Bestellen':'Pedir')}
           </button>
         </div>
       </div>

@@ -13,7 +13,7 @@ const Home         = lazy(() => import('./pages/Home'));
 const Catalog      = lazy(() => import('./pages/Catalog'));
 const CarDetails   = lazy(() => import('./pages/CarDetails'));
 const Simulation   = lazy(() => import('./pages/Simulation'));
-const Cart         = lazy(() => import('./pages/Cart'));
+const Commander    = lazy(() => import('./pages/Commander'));
 const Track        = lazy(() => import('./pages/Track'));
 const OrderConfirm = lazy(() => import('./pages/OrderConfirm'));
 const MesCommandes = lazy(() => import('./pages/MesCommandes'));
@@ -170,7 +170,7 @@ export default function App() {
 
         {/* Auth */}
         {/* Espace client (sans compte) */}
-        <Route path="/cart"     element={<MainLayout><Cart /></MainLayout>} />
+        <Route path="/commander/:id" element={<MainLayout><Commander /></MainLayout>} />
         <Route path="/order-confirm/:orderNumber" element={<MainLayout><OrderConfirm /></MainLayout>} />
         <Route path="/mes-commandes" element={<MainLayout><MesCommandes /></MainLayout>} />
 

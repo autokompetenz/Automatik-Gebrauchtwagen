@@ -102,17 +102,7 @@ export default function CarDetails() {
   const handleAddToCart = async () => {
     try {
       setAdding(true);
-      await addItem(car, 'full');
-      addToast(
-        `${car.make} ${car.model} ${
-          lang === 'fr' ? 'ajouté au panier' :
-          lang === 'en' ? 'added to cart' :
-          lang === 'de' ? 'zum Warenkorb hinzugefügt' :
-          'أضيف إلى السلة'
-        }`, 'success'
-      );
-    } catch (err) {
-      addToast(err.response?.data?.error || 'Erreur', 'error');
+      navigate(`/commander/${car.id}`);
     } finally { setAdding(false); }
   };
 
@@ -131,7 +121,7 @@ export default function CarDetails() {
 
   const breadcrumbs   = { fr:'Accueil', en:'Home', de:'Startseite', ar:'الرئيسية' };
   const catalogBc     = { fr:'Catalogue', en:'Catalogue', de:'Katalog', ar:'الكتالوج' };
-  const addBtn        = { fr:'Ajouter au panier', en:'Add to Cart', de:'In den Warenkorb', ar:'أضف إلى السلة' };
+  const addBtn        = { fr:'Commander', en:'Order Now', de:'Jetzt Bestellen', ar:'اطلب الآن' };
   const recSalary     = { fr:'Salaire minimum recommandé', en:'Minimum recommended salary', de:'Empfohlenes Mindestgehalt', ar:'الحد الأدنى الموصى به للراتب' };
 
   return (
