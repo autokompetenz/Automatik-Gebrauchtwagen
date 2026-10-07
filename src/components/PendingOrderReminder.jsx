@@ -57,7 +57,7 @@ export default function PendingOrderReminder() {
         whileTap={{ scale: 0.9 }}
         onClick={() => setOpen((o) => !o)}
         style={{
-          position: 'fixed', bottom: 88, right: 18, zIndex: 999,
+          position: 'fixed', bottom: 88, left: 18, zIndex: 999,
           width: 52, height: 52, borderRadius: '50%',
           background: '#132853', color: '#fff', fontSize: 22,
           border: 'none', cursor: 'pointer',
@@ -89,7 +89,7 @@ export default function PendingOrderReminder() {
             exit={{ opacity: 0, y: 10, scale: 0.95 }}
             transition={{ type: 'spring', damping: 20, stiffness: 300 }}
             style={{
-              position: 'fixed', bottom: 152, right: 18, zIndex: 999,
+              position: 'fixed', bottom: 152, left: 18, zIndex: 999,
               width: 300, padding: '18px 16px', borderRadius: 16,
               background: 'var(--bg-card)', border: '1px solid var(--red-border)',
               boxShadow: '0 12px 40px rgba(0,0,0,0.2)', textAlign: 'center',
