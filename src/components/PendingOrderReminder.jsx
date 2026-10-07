@@ -34,7 +34,11 @@ export default function PendingOrderReminder() {
       } catch {}
     };
     fetchPending();
-    return () => { cancelled = true; };
+
+    const handler = () => fetchPending();
+    window.addEventListener('ak_order_email_changed', handler);
+
+    return () => { cancelled = true; window.removeEventListener('ak_order_email_changed', handler); };
   }, [isAuthenticated, user?.role, pathname]);
 
   if (!pendingOrder) return null;

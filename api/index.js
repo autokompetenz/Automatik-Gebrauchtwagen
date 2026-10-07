@@ -1170,7 +1170,8 @@ app.get('/api/orders/track/:orderNumber', async (req, res) => {
     const { orderNumber } = req.params;
     const order = await prisma.order.findUnique({
       where: { orderNumber },
-      include: { 
+      include: {
+        user: { select: { email: true, firstName: true } },
         items: { include: { car: true } },
         tracking: { 
           include: { admin: { select: { firstName:true, lastName:true } } },

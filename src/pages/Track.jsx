@@ -50,6 +50,10 @@ export default function Track() {
     try {
       const { data } = await orderAPI.track(num.trim().toUpperCase());
       setOrder(data.order);
+      if (data.order?.user?.email) {
+        sessionStorage.setItem('ak_order_email', data.order.user.email);
+        window.dispatchEvent(new Event('ak_order_email_changed'));
+      }
     } catch (err) {
       setError(err.response?.data?.error || (
         l==='fr'?'Commande introuvable.':l==='en'?'Order not found.':l==='de'?'Bestellung nicht gefunden.':l==='es'?'Pedido no encontrado.':l==='it'?'Ordine non trovato.':'Pedido não encontrado.'
@@ -64,9 +68,11 @@ export default function Track() {
   useState(() => { if (paramNum) fetchOrder(paramNum); }, []);
 
   const handleEmailSearch = async (val) => {
-    const email = (val || input).trim();
-    if (!email) return;
     try {
+      const email = (val || input).trim();
+      if (!email) return;
+      sessionStorage.setItem('ak_order_email', email);
+      window.dispatchEvent(new Event('ak_order_email_changed'));
       setEmailError('');
       const r = await orderAPI.byEmail(email);
       setEmailResults(Array.isArray(r.data) ? r.data : []);

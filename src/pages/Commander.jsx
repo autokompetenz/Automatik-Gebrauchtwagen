@@ -48,7 +48,9 @@ export default function Commander() {
       fd.append('phone', form.phone.trim());
       fd.append('items', JSON.stringify([{ carId: Number(id), quantity: 1 }]));
       const { data } = await orderAPI.create(fd);
+      localStorage.setItem('ak_order_email', form.email.trim());
       sessionStorage.setItem('ak_order_email', form.email.trim());
+      window.dispatchEvent(new Event('ak_order_email_changed'));
       setDone(data.orderNumber);
     } catch (err) {
       addToast(err.response?.data?.error || 'Erreur', 'error');
