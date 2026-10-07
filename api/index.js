@@ -1200,30 +1200,15 @@ app.patch('/api/orders/:id', authenticateToken, requireAdmin, async (req, res) =
       return res.status(400).json({ error: 'Statut invalide' });
     }
 
-    // Admin peut confirmer/ajuster les coordonnées de paiement à la validation
-    if (bankInfo && (bankInfo.iban !== undefined || bankInfo.bic !== undefined || bankInfo.beneficiary !== undefined || bankInfo.transferType !== undefined)) {
-      const existing = await prisma.bankInfo.findFirst();
-      if (existing) {
-        await prisma.bankInfo.update({
-          where: { id: existing.id },
-          data: {
-            iban: bankInfo.iban ?? existing.iban,
-            bic: bankInfo.bic ?? existing.bic,
-            beneficiary: bankInfo.beneficiary ?? existing.beneficiary,
-            transferType: bankInfo.transferType ?? existing.transferType,
-          },
-        });
-      } else {
-        await prisma.bankInfo.create({
-          data: {
-            iban: bankInfo.iban || '',
-            bic: bankInfo.bic || '',
-            beneficiary: bankInfo.beneficiary || 'AUTOMATIK GEBRAUCHTWAGEN',
-            transferType: bankInfo.transferType || 'SEPA',
-          },
-        });
-      }
-    }
+    // Adresse de paiement spécifique à cette commande (définissable par l'admin à la validation)
+    const setPaymentData = bankInfo && (bankInfo.iban !== undefined || bankInfo.bic !== undefined || bankInfo.beneficiary !== undefined || bankInfo.transferType !== undefined)
+      ? {
+          paymentIban: bankInfo.iban ?? currentOrder?.paymentIban ?? null,
+          paymentBic: bankInfo.bic ?? currentOrder?.paymentBic ?? null,
+          paymentBeneficiary: bankInfo.beneficiary ?? currentOrder?.paymentBeneficiary ?? null,
+          paymentTransferType: bankInfo.transferType ?? currentOrder?.paymentTransferType ?? null,
+        }
+      : undefined;
     
     // Get current order to check if status changed
     const currentOrder = await prisma.order.findUnique({
@@ -1235,7 +1220,7 @@ app.patch('/api/orders/:id', authenticateToken, requireAdmin, async (req, res) =
     
     const order = await prisma.order.update({
       where: { id: parseInt(id) },
-      data: { status },
+      data: { status, ...(setPaymentData || {}) },
     });
     
     await prisma.orderTracking.create({
@@ -1245,7 +1230,10 @@ app.patch('/api/orders/:id', authenticateToken, requireAdmin, async (req, res) =
     // Send email if status changed or if there's a comment
     let emailSent = false;
     if (statusChanged || comment) {
-      const freshBank = await getBankInfo();
+      const globalBank = await getBankInfo();
+      const orderBank = (order.paymentIban || order.paymentBic || order.paymentBeneficiary)
+        ? { iban: order.paymentIban, bic: order.paymentBic, beneficiary: order.paymentBeneficiary, transferType: order.paymentTransferType }
+        : globalBank;
       try {
         await sendOrderStatusUpdateEmail({
           email: currentOrder.user.email,
@@ -1254,7 +1242,7 @@ app.patch('/api/orders/:id', authenticateToken, requireAdmin, async (req, res) =
           status,
           comment,
           statusChanged,
-          bank: status === 'confirmed' ? freshBank : undefined,
+          bank: status === 'confirmed' ? orderBank : undefined,
         });
       } catch (err) { console.error('Order status update email error:', err); }
       emailSent = true;

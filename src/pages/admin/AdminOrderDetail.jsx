@@ -26,11 +26,22 @@ export default function AdminOrderDetail() {
 
   const load = () => {
     orderAPI.getAdminDetail(id)
-      .then(r => { setOrder(r.data.order); setNewStatus(r.data.order.status); setLoading(false); })
+      .then(r => {
+        setOrder(r.data.order);
+        setNewStatus(r.data.order.status);
+        setLoading(false);
+        bankAPI.getAdmin()
+          .then(b => {
+            const od = r.data.order;
+            if (od.paymentIban || od.paymentBic || od.paymentBeneficiary) {
+              setBankInfo({ iban: od.paymentIban || '', bic: od.paymentBic || '', beneficiary: od.paymentBeneficiary || 'AUTOMATIK GEBRAUCHTWAGEN', transferType: od.paymentTransferType || 'SEPA' });
+            } else {
+              setBankInfo({ iban: b.data.bank?.iban || '', bic: b.data.bank?.bic || '', beneficiary: b.data.bank?.beneficiary || 'AUTOMATIK GEBRAUCHTWAGEN', transferType: b.data.bank?.transferType || 'SEPA' });
+            }
+          })
+          .catch(() => {});
+      })
       .catch(() => setLoading(false));
-    bankAPI.getAdmin()
-      .then(r => setBankInfo({ iban: r.data.bank?.iban || '', bic: r.data.bank?.bic || '', beneficiary: r.data.bank?.beneficiary || 'AUTOMATIK GEBRAUCHTWAGEN', transferType: r.data.bank?.transferType || 'SEPA' }))
-      .catch(() => {});
   };
   useEffect(load, [id]);
 
