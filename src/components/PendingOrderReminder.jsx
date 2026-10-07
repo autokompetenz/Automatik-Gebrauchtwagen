@@ -23,7 +23,7 @@ export default function PendingOrderReminder() {
           const r = await orderAPI.getMy();
           orders = Array.isArray(r.data) ? r.data : [];
         } else {
-          const email = localStorage.getItem('ak_order_email');
+          const email = sessionStorage.getItem('ak_order_email');
           if (!email) return;
           const r = await orderAPI.byEmail(email);
           orders = Array.isArray(r.data) ? r.data : [];

@@ -8,7 +8,7 @@ import { formatEuro } from '../utils/helpers';
 export default function MesCommandes() {
   const { lang } = useLangStore();
   const l = lang || 'fr';
-  const [email, setEmail] = useState(localStorage.getItem('ak_order_email') || '');
+  const [email, setEmail] = useState(sessionStorage.getItem('ak_order_email') || '');
   const [orders, setOrders] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
@@ -21,7 +21,7 @@ export default function MesCommandes() {
       setError('');
       const { data } = await orderAPI.byEmail(email.trim());
       setOrders(Array.isArray(data) ? data : []);
-      localStorage.setItem('ak_order_email', email.trim());
+      sessionStorage.setItem('ak_order_email', email.trim());
     } catch {
       setError(l === 'fr' ? 'Erreur lors du chargement' : 'Error loading orders');
       setOrders(null);

@@ -18,7 +18,7 @@ export default function Commander() {
   const [submitting, setSubmitting] = useState(false);
   const [done, setDone] = useState(null);
   const [form, setForm] = useState({
-    firstName: '', lastName: '', email: localStorage.getItem('ak_order_email') || '',
+    firstName: '', lastName: '', email: sessionStorage.getItem('ak_order_email') || '',
     phone: '', address: '', notes: '', paymentType: 'full',
   });
 
@@ -48,7 +48,7 @@ export default function Commander() {
       fd.append('phone', form.phone.trim());
       fd.append('items', JSON.stringify([{ carId: Number(id), quantity: 1 }]));
       const { data } = await orderAPI.create(fd);
-      localStorage.setItem('ak_order_email', form.email.trim());
+      sessionStorage.setItem('ak_order_email', form.email.trim());
       setDone(data.orderNumber);
     } catch (err) {
       addToast(err.response?.data?.error || 'Erreur', 'error');
