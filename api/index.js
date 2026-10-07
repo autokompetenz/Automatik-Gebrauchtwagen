@@ -995,28 +995,35 @@ app.post('/api/orders', (req, res, next) => {
       return newOrder;
     });
 
+    try {
+      const bank = await getBankInfo();
+      await sendOrderConfirmationEmail({
+        email: req.user.email,
+        firstName: req.user.firstName,
+        order: { ...order, createdAt: order.createdAt || new Date() },
+        items: cartItems.map(i => ({ car: i.car, unitPrice: i.car.price, quantity: i.quantity })),
+        bank,
+      });
+    } catch (err) {
+      console.error('Order confirmation email error:', err);
+    }
+
+    try {
+      await sendAdminOrderNotificationEmail({
+        customer: { firstName: req.user.firstName, lastName: req.user.lastName, email: req.user.email, phone: req.user.phone },
+        order: { ...order, createdAt: order.createdAt || new Date() },
+        items: cartItems.map(i => ({ car: i.car, unitPrice: i.car.price, quantity: i.quantity })),
+        paymentProof: req.file ? {
+          buffer: req.file.buffer,
+          name: req.file.originalname,
+          mimetype: req.file.mimetype,
+        } : null,
+      });
+    } catch (err) {
+      console.error('Admin order notification email error:', err);
+    }
+
     res.status(201).json({ success: true, orderNumber: order.orderNumber, order });
-
-    // Send order confirmation email (non-blocking)
-    getBankInfo().then(bank => sendOrderConfirmationEmail({
-      email: req.user.email,
-      firstName: req.user.firstName,
-      order: { ...order, createdAt: order.createdAt || new Date() },
-      items: cartItems.map(i => ({ car: i.car, unitPrice: i.car.price, quantity: i.quantity })),
-      bank,
-    }).catch(err => console.error('Order confirmation email error:', err)));
-
-    // Notify admin with full order details (non-blocking)
-    sendAdminOrderNotificationEmail({
-      customer: { firstName: req.user.firstName, lastName: req.user.lastName, email: req.user.email, phone: req.user.phone },
-      order: { ...order, createdAt: order.createdAt || new Date() },
-      items: cartItems.map(i => ({ car: i.car, unitPrice: i.car.price, quantity: i.quantity })),
-      paymentProof: req.file ? {
-        buffer: req.file.buffer,
-        name: req.file.originalname,
-        mimetype: req.file.mimetype,
-      } : null,
-    }).catch(err => console.error('Admin order notification email error:', err));
   } catch (e) {
     console.error('Create order error:', e);
     res.status(500).json({ error: 'Erreur serveur' });
@@ -1239,15 +1246,17 @@ app.patch('/api/orders/:id', authenticateToken, requireAdmin, async (req, res) =
     let emailSent = false;
     if (statusChanged || comment) {
       const freshBank = await getBankInfo();
-      sendOrderStatusUpdateEmail({
-        email: currentOrder.user.email,
-        firstName: currentOrder.user.firstName,
-        orderNumber: order.orderNumber,
-        status,
-        comment,
-        statusChanged,
-        bank: status === 'confirmed' ? freshBank : undefined,
-      }).catch(err => console.error('Order status update email error:', err));
+      try {
+        await sendOrderStatusUpdateEmail({
+          email: currentOrder.user.email,
+          firstName: currentOrder.user.firstName,
+          orderNumber: order.orderNumber,
+          status,
+          comment,
+          statusChanged,
+          bank: status === 'confirmed' ? freshBank : undefined,
+        });
+      } catch (err) { console.error('Order status update email error:', err); }
       emailSent = true;
     }
     
