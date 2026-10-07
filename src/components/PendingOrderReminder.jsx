@@ -14,16 +14,25 @@ export default function PendingOrderReminder() {
   const [pendingOrder, setPendingOrder] = useState(null);
 
   useEffect(() => {
-    if (!isAuthenticated || user?.role === 'ADMIN') return;
     let cancelled = false;
-    orderAPI.getMy()
-      .then((r) => {
+    const fetchPending = async () => {
+      try {
+        let orders = [];
+        if (isAuthenticated && user?.role !== 'ADMIN') {
+          const r = await orderAPI.getMy();
+          orders = Array.isArray(r.data) ? r.data : [];
+        } else {
+          const email = localStorage.getItem('ak_order_email');
+          if (!email) return;
+          const r = await orderAPI.byEmail(email);
+          orders = Array.isArray(r.data) ? r.data : [];
+        }
         if (cancelled) return;
-        const orders = Array.isArray(r.data) ? r.data : [];
         const pending = orders.find((o) => o.status === 'pending');
         setPendingOrder(pending || null);
-      })
-      .catch(() => {});
+      } catch {}
+    };
+    fetchPending();
     return () => { cancelled = true; };
   }, [isAuthenticated, user?.role, pathname]);
 
