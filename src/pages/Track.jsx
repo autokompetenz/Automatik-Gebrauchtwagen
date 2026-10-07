@@ -34,6 +34,9 @@ export default function Track() {
   const { lang } = useLangStore();
   const { isMobile } = useBreakpoint();
   const [input, setInput] = useState(paramNum || '');
+  const [emailInput, setEmailInput] = useState(sessionStorage.getItem('ak_order_email') || '');
+  const [emailResults, setEmailResults] = useState(null);
+  const [emailError, setEmailError] = useState('');
   const [order, setOrder] = useState(null);
   const [bank, setBank] = useState(null);
   const [loading, setLoading] = useState(!!paramNum);
@@ -60,6 +63,19 @@ export default function Track() {
   }, []);
 
   useState(() => { if (paramNum) fetchOrder(paramNum); }, []);
+
+  const handleEmailSearch = async (e) => {
+    e.preventDefault();
+    if (!emailInput.trim()) return;
+    try {
+      setEmailError('');
+      const r = await orderAPI.byEmail(emailInput.trim());
+      setEmailResults(Array.isArray(r.data) ? r.data : []);
+    } catch {
+      setEmailError(l==='fr'?'Aucune commande trouvée.':l==='en'?'No orders found.':'No orders found.');
+      setEmailResults(null);
+    }
+  };
 
   const handleSearch = (e) => {
     e.preventDefault();
@@ -133,6 +149,32 @@ export default function Track() {
               {L.search[l]}
             </button>
           </form>
+
+          {/* Recherche par email */}
+          <form onSubmit={handleEmailSearch} style={{ display:'flex', gap:12, maxWidth:520, marginTop:14, flexWrap: isMobile ? 'wrap' : 'nowrap' }}>
+            <input value={emailInput} onChange={e => setEmailInput(e.target.value)} type="email"
+              placeholder={l==='fr'?'Ou rechercher par email...':l==='en'?'Or search by email...':l==='de'?'Oder per E-Mail suchen...':l==='es'?'O busca por email...':l==='it'?'O cerca per email...':'O busque por email...'}
+              className="input-luxury"
+              style={{ flex:1, fontSize: isMobile ? 14 : 16, minWidth:0 }} />
+            <button type="submit" className="btn-ghost" style={{ padding:'13px 24px', flexShrink:0, fontSize:14, whiteSpace:'nowrap' }}>
+              {l==='fr'?'Mes commandes':l==='en'?'My orders':l==='de'?'Meine Bestellungen':l==='es'?'Mis pedidos':l==='it'?'I miei ordini':'Meus pedidos'}
+            </button>
+          </form>
+          {emailError && <p style={{ color:'#EF4444', fontSize:13, marginTop:10 }}>{emailError}</p>}
+          {emailResults !== null && (
+            <div style={{ marginTop:14, maxWidth:520 }}>
+              {emailResults.length === 0 && (
+                <p style={{ fontSize:13, color:'var(--text-3)' }}>{l==='fr'?'Aucune commande trouvée.':l==='en'?'No orders found.':l==='de'?'Keine Bestellungen gefunden.':l==='es'?'No pedidos.':l==='it'?'Nessun ordine trovato.':'Nenhum pedido encontrado.'}</p>
+              )}
+              {emailResults.map(o => (
+                <Link key={o.id} to={`/track/${o.orderNumber}`} style={{ display:'flex', justifyContent:'space-between', alignItems:'center', padding:'12px 16px', background:'var(--bg-card)', border:'1px solid var(--border)', borderRadius:10, textDecoration:'none', color:'var(--text)', marginBottom:8 }}>
+                  <span style={{ fontFamily:'monospace', fontWeight:700 }}>{o.orderNumber}</span>
+                  <span style={{ fontSize:13, color:'var(--text-3)' }}>{new Date(o.createdAt).toLocaleDateString(l==='fr'?'fr-FR':l==='de'?'de-DE':'en-GB')}</span>
+                  <span className="badge badge-{o.status}">{STATUS_LABELS_ML[l]?.[o.status] || o.status}</span>
+                </Link>
+              ))}
+            </div>
+          )}
         </div>
       </div>
 
