@@ -113,6 +113,39 @@ export default function CarDetails() {
   );
   if (!car) return null;
 
+  // Detect specs from a pasted description block
+  const parseSpecsFromDescription = (txt) => {
+    if (!txt) return {};
+    const knownLabels = [
+      'Dernier entretien','Validité du contrôle technique','Première immatriculation',
+      'Date de production','Kilométrage','Type de carburant','Type de transmission',
+      'Norme d\'émission de CO2','Émissions de CO2','Puissance','Cylindrée',
+      'Type de carrosserie','Portes','Nombre de places','Numéro de châssis',
+      'Numéro de châssis (court)','Nombre de clés','Couleur extérieure',
+      'Couleur de l\'intérieur','État','Spécifications',
+    ];
+    const keys = new Set(knownLabels.map(k => k.toLowerCase()));
+    const lines = txt.split(/\r?\n/).map(l => l.trim()).filter(Boolean);
+    const obj = {};
+    for (let i = 0; i < lines.length; i++) {
+      const l = lines[i];
+      if (keys.has(l.toLowerCase())) {
+        // skip headings if value unknown? tentative: if it's a heading line, assume next non-empty line is its value except if it's another known label
+        if (i + 1 < lines.length && !keys.has(lines[i + 1].toLowerCase())) {
+          obj[l] = lines[i + 1];
+          i++;
+        } else if (l.toLowerCase() !== 'état' && l.toLowerCase() !== 'spécifications') {
+          obj[l] = '';
+        }
+      }
+    }
+    return obj;
+  };
+
+  const specsFromDescription = (car?.technicalData && Object.keys(car.technicalData).length > 0)
+    ? null
+    : parseSpecsFromDescription(car?.description || '');
+
   const images = IMAGE_FIELDS.map(f => car?.[f]).filter(Boolean);
 
   const powerHp = Number(car?.power) || 0;
@@ -291,13 +324,13 @@ export default function CarDetails() {
             </div>
 
             {/* Caractéristiques techniques détaillées */}
-            {car.technicalData && Object.keys(car.technicalData).length > 0 && (
+            {(car.technicalData && Object.keys(car.technicalData).length > 0) || (specsFromDescription && Object.keys(specsFromDescription).length > 0) ? (
               <div style={{ background: C.card2, border:'1px solid var(--border)', borderRadius:12, padding: isMobile ? '16px 14px' : '18px 20px', marginBottom:28 }}>
                 <p style={{ fontSize:11, fontWeight:800, letterSpacing:'0.25em', textTransform:'uppercase', color:'var(--red)', marginBottom:12 }}>
                   {l==='fr'?'Caractéristiques détaillées':l==='en'?'Detailed specifications':l==='de'?'Detailspezifikationen':'Especificaciones detalladas'}
                 </p>
                 <div style={{ display:'grid', gridTemplateColumns: isMobile ? '1fr' : '1fr 1fr', gap: isMobile ? 8 : 12 }}>
-                  {Object.entries(car.technicalData).map(([key, value]) => (
+                  {Object.entries(car.technicalData && Object.keys(car.technicalData).length > 0 ? car.technicalData : specsFromDescription).map(([key, value]) => (
                     <div key={key} style={{ display:'flex', justifyContent:'space-between', gap:12, borderBottom:'1px solid var(--border)', paddingBottom:4 }}>
                       <span style={{ fontSize:12, color:C.text3 }}>{key}</span>
                       <span style={{ fontSize:12, fontWeight:700, color:C.text, textAlign:'right' }}>{value}</span>
@@ -305,7 +338,7 @@ export default function CarDetails() {
                   ))}
                 </div>
               </div>
-            )}
+            ) : null}
 
             {/* Historique du véhicule */}
             {(car.previousOwners != null || car.accidentFree !== undefined || car.serviceHistory !== undefined || car.historyNotes) && (
