@@ -118,8 +118,8 @@ export default function AdminCarForm() {
     
     if (files.length > 0) {
       const validFiles = files.filter(file => {
-        if (file.size > 5 * 1024 * 1024) {
-          addToast(`Image ${file.name} trop volumineuse (max 5MB)`, 'error');
+        if (file.size > 10 * 1024 * 1024) {
+          addToast(`Image ${file.name} trop volumineuse (max 10MB)`, 'error');
           return false;
         }
         return true;
@@ -229,7 +229,7 @@ export default function AdminCarForm() {
       // Add image files (compressed to avoid limite serverless, triées 1.webp, 2.webp…)
       const compressedFiles = await Promise.all(imageFiles.map(f => compressImage(f)));
       const totalSize = compressedFiles.reduce((s, f) => s + f.size, 0);
-      if (totalSize > 5 * 1024 * 1024) {
+      if (totalSize > 10 * 1024 * 1024) {
         addToast('Total des images trop volumineux pour l\'upload. Envoyez moins d\'images ou compressez davantage.', 'error');
         return;
       }
