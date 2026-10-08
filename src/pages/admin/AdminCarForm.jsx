@@ -194,7 +194,6 @@ export default function AdminCarForm() {
       formData.append('accidentFree', form.accidentFree ? 'true' : 'false');
       formData.append('serviceHistory', form.serviceHistory ? 'true' : 'false');
       if (form.historyNotes) formData.append('historyNotes', form.historyNotes);
-      if (form.technicalData) formData.append('technicalData', form.technicalData);
       formData.append('featured', form.featured ? 'true' : 'false');
       formData.append('promotional', form.promotional ? 'true' : 'false');
       formData.append('isActive', form.isActive ? 'true' : 'false');
@@ -269,8 +268,7 @@ export default function AdminCarForm() {
             <Field label="Kilométrage" field="mileage" type="number" placeholder="0" value={form.mileage} onChange={set("mileage")} />
             <Field label="Propriétaires précédents" field="previousOwners" type="number" placeholder="1" value={form.previousOwners} onChange={set("previousOwners")} />
             <Field label="Puissance (hp)" field="power" type="number" placeholder="150" value={form.power} onChange={set("power")} />
-            <Field label="Technical data (JSON)" field="technicalData" rows={5} placeholder='{"Première immatriculation":"...","Kilométrage":"..."}' value={form.technicalData} onChange={set("technicalData")} />
-          <Field label="Historique du véhicule (notes)" field="historyNotes" rows={3} placeholder="Carnet d'entretien, contrôle technique, etc." value={form.historyNotes} onChange={set("historyNotes")} />
+            <Field label="Historique du véhicule (notes)" field="historyNotes" rows={3} placeholder="Carnet d'entretien, contrôle technique, etc." value={form.historyNotes} onChange={set("historyNotes")} />
           </div>
         </Section>
 
