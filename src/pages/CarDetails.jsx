@@ -290,6 +290,23 @@ export default function CarDetails() {
               ))}
             </div>
 
+            {/* Caractéristiques techniques détaillées */}
+            {car.technicalData && Object.keys(car.technicalData).length > 0 && (
+              <div style={{ background: C.card2, border:'1px solid var(--border)', borderRadius:12, padding: isMobile ? '16px 14px' : '18px 20px', marginBottom:28 }}>
+                <p style={{ fontSize:11, fontWeight:800, letterSpacing:'0.25em', textTransform:'uppercase', color:'var(--red)', marginBottom:12 }}>
+                  {l==='fr'?'Caractéristiques détaillées':l==='en'?'Detailed specifications':l==='de'?'Detailspezifikationen':'Especificaciones detalladas'}
+                </p>
+                <div style={{ display:'grid', gridTemplateColumns: isMobile ? '1fr' : '1fr 1fr', gap: isMobile ? 8 : 12 }}>
+                  {Object.entries(car.technicalData).map(([key, value]) => (
+                    <div key={key} style={{ display:'flex', justifyContent:'space-between', gap:12, borderBottom:'1px solid var(--border)', paddingBottom:4 }}>
+                      <span style={{ fontSize:12, color:C.text3 }}>{key}</span>
+                      <span style={{ fontSize:12, fontWeight:700, color:C.text, textAlign:'right' }}>{value}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+
             {/* Historique du véhicule */}
             {(car.previousOwners != null || car.accidentFree !== undefined || car.serviceHistory !== undefined || car.historyNotes) && (
               <div style={{ background: C.card2, border:'1px solid var(--border)', borderRadius:12, padding: isMobile ? '16px 14px' : '18px 20px', marginBottom:28 }}>

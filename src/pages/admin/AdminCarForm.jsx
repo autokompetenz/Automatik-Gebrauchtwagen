@@ -3,7 +3,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { carAPI } from '../../services/api';
 import { useToastStore } from '../../store';
 
-const EMPTY = { make:'', model:'', year:new Date().getFullYear(), price:'', description:'', fuelType:'Essence', transmission:'Automatique', mileage:0, color:'', power:'', category:'Berline', imageUrl:'', imageUrl2:'', imageUrl3:'', imageUrl4:'', imageUrl5:'', imageUrl6:'', imageUrl7:'', imageUrl8:'', imageUrl9:'', imageUrl10:'', imageUrl11:'', imageUrl12:'', imageUrl13:'', imageUrl14:'', imageUrl15:'', imageUrl16:'', imageUrl17:'', imageUrl18:'', imageUrl19:'', imageUrl20:'', minSalary:'', featured:false, promotional:false, isActive:true, previousOwners:'', accidentFree:false, serviceHistory:false, historyNotes:'' };
+const EMPTY = { make:'', model:'', year:new Date().getFullYear(), price:'', description:'', fuelType:'Essence', transmission:'Automatique', mileage:0, color:'', power:'', category:'Berline', imageUrl:'', imageUrl2:'', imageUrl3:'', imageUrl4:'', imageUrl5:'', imageUrl6:'', imageUrl7:'', imageUrl8:'', imageUrl9:'', imageUrl10:'', imageUrl11:'', imageUrl12:'', imageUrl13:'', imageUrl14:'', imageUrl15:'', imageUrl16:'', imageUrl17:'', imageUrl18:'', imageUrl19:'', imageUrl20:'', minSalary:'', featured:false, promotional:false, isActive:true, previousOwners:'', accidentFree:false, serviceHistory:false, historyNotes:'', technicalData:'' };
 
 function Section({ title, children }) {
   return (
@@ -75,7 +75,7 @@ export default function AdminCarForm() {
     if (isEdit) {
       carAPI.getById(id).then(r => {
         const c = r.data.car;
-        setForm({ ...EMPTY, ...c, price:String(c.price), minSalary:String(c.minSalary||''), power:String(c.power||'') });
+        setForm({ ...EMPTY, ...c, price:String(c.price), minSalary:String(c.minSalary||''), power:String(c.power||''), technicalData: c.technicalData ? JSON.stringify(c.technicalData, null, 2) : '' });
         // Load existing images (up to 20)
         const existing = [];
         const imageFields = ['imageUrl', 'imageUrl2', 'imageUrl3', 'imageUrl4', 'imageUrl5', 'imageUrl6', 'imageUrl7', 'imageUrl8', 'imageUrl9', 'imageUrl10', 'imageUrl11', 'imageUrl12', 'imageUrl13', 'imageUrl14', 'imageUrl15', 'imageUrl16', 'imageUrl17', 'imageUrl18', 'imageUrl19', 'imageUrl20'];
@@ -194,6 +194,7 @@ export default function AdminCarForm() {
       formData.append('accidentFree', form.accidentFree ? 'true' : 'false');
       formData.append('serviceHistory', form.serviceHistory ? 'true' : 'false');
       if (form.historyNotes) formData.append('historyNotes', form.historyNotes);
+      if (form.technicalData) formData.append('technicalData', form.technicalData);
       formData.append('featured', form.featured ? 'true' : 'false');
       formData.append('promotional', form.promotional ? 'true' : 'false');
       formData.append('isActive', form.isActive ? 'true' : 'false');
@@ -268,7 +269,8 @@ export default function AdminCarForm() {
             <Field label="Kilométrage" field="mileage" type="number" placeholder="0" value={form.mileage} onChange={set("mileage")} />
             <Field label="Propriétaires précédents" field="previousOwners" type="number" placeholder="1" value={form.previousOwners} onChange={set("previousOwners")} />
             <Field label="Puissance (hp)" field="power" type="number" placeholder="150" value={form.power} onChange={set("power")} />
-            <Field label="Historique du véhicule (notes)" field="historyNotes" rows={3} placeholder="Carnet d'entretien, contrôle technique, etc." value={form.historyNotes} onChange={set("historyNotes")} />
+            <Field label="Technical data (JSON)" field="technicalData" rows={5} placeholder='{"Première immatriculation":"...","Kilométrage":"..."}' value={form.technicalData} onChange={set("technicalData")} />
+          <Field label="Historique du véhicule (notes)" field="historyNotes" rows={3} placeholder="Carnet d'entretien, contrôle technique, etc." value={form.historyNotes} onChange={set("historyNotes")} />
           </div>
         </Section>
 

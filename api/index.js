@@ -89,6 +89,11 @@ function parseCarFormBody(data) {
     firstRegistration: data.firstRegistration ? new Date(data.firstRegistration) : null,
     lastInspection: data.lastInspection ? new Date(data.lastInspection) : null,
     historyNotes: data.historyNotes || null,
+    technicalData: (() => {
+      if (!data.technicalData) return null;
+      try { return typeof data.technicalData === 'string' ? JSON.parse(data.technicalData) : data.technicalData; }
+      catch { return null; }
+    })(),
   };
   for (let i = 1; i <= 20; i++) {
     const key = i === 1 ? 'imageUrl' : `imageUrl${i}`;

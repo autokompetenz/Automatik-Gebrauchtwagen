@@ -131,6 +131,7 @@ model Car {
   firstRegistration DateTime?
   lastInspection DateTime?
   historyNotes   String?      @db.Text
+  technicalData  Json?
 
   orderItems OrderItem[]
   cartItems  Cart[]
