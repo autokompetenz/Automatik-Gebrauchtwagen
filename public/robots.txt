@@ -2,12 +2,8 @@ User-agent: *
 Allow: /
 Disallow: /admin
 Disallow: /api/
-Disallow: /login
-Disallow: /register
-Disallow: /dashboard
-Disallow: /profile
-Disallow: /cart
-Disallow: /orders
+Disallow: /mes-commandes
 Disallow: /order-confirm/
+Disallow: /commander/
 
 Sitemap: https://automatikgebrauchtwagen.com/sitemap.xml

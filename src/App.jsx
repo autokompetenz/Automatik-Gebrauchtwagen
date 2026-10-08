@@ -41,6 +41,33 @@ const AdminCarForm     = lazy(() => import('./pages/admin/AdminCarForm'));
 const AdminClients     = lazy(() => import('./pages/admin/AdminClients'));
 const AdminSettings    = lazy(() => import('./pages/admin/AdminSettings'));
 
+function SeoTitle() {
+  const { pathname } = useLocation();
+  const { lang } = useLangStore();
+  useEffect(() => {
+    const base = 'Automatik Gebrauchtwagen';
+    const titles = {
+      '/': lang==='fr'? `${base} — Véhicules neufs et d'occasion à Naumburg, Allemagne` : `${base} — New & Used Cars in Naumburg`,
+      '/catalog': lang==='fr'? `${base} — Catalogue véhicules` : `${base} — Vehicles`,
+      '/simulation': lang==='fr'? `${base} — Simulation de financement` : `${base} — Financing`,
+      '/contact': lang==='fr'? `${base} — Contact` : `${base} — Contact`,
+      '/a-propos': lang==='fr'? `${base} — À propos` : `${base} — About`,
+      '/blog': lang==='fr'? `${base} — Blog automobile` : `${base} — Blog`,
+      '/avis': lang==='fr'? `${base} — Avis` : `${base} — Reviews`,
+      '/faq': lang==='fr'? `${base} — FAQ` : `${base} — FAQ`,
+      '/marques': lang==='fr'? `${base} — Marques` : `${base} — Brands`,
+      '/livraison': lang==='fr'? `${base} — Livraison` : `${base} — Delivery`,
+      '/camping-car': lang==='fr'? `${base} — Camping Cars` : `${base} — Motorhomes`,
+      '/vendre': lang==='fr'? `${base} — Vendre votre véhicule` : `${base} — Sell your car`,
+      '/maintenance': lang==='fr'? `${base} — Entretien` : `${base} — Maintenance`,
+      '/warranty': lang==='fr'? `${base} — Garantie` : `${base} — Warranty`,
+      '/insurance': lang==='fr'? `${base} — Assurance` : `${base} — Insurance`,
+    };
+    document.title = titles[pathname] || base;
+  }, [pathname, lang]);
+  return null;
+}
+
 function RouteFallback() {
   return (
     <div style={{
@@ -138,6 +165,7 @@ export default function App() {
   return (
     <BrowserRouter>
       <ScrollToTop />
+      <SeoTitle />
       <Toast />
       <PendingOrderReminder />
       <Suspense fallback={<RouteFallback />}>
