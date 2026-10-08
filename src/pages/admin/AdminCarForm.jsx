@@ -163,6 +163,33 @@ export default function AdminCarForm() {
   };
 
   const handleSubmit = async (e) => {
+    const compressImage = (file) => {
+      return new Promise((resolve) => {
+        if (!file.type.startsWith('image/')) return resolve(file);
+        const img = new Image();
+        img.onload = () => {
+          const canvas = document.createElement('canvas');
+          const ratio = Math.min(1600 / img.width, 1600 / img.height, 1);
+          const width = Math.round(img.width * ratio);
+          const height = Math.round(img.height * ratio);
+          canvas.width = width;
+          canvas.height = height;
+          const ctx = canvas.getContext('2d');
+          ctx.drawImage(img, 0, 0, width, height);
+          canvas.toBlob(
+            (blob) => {
+              const name = file.name.replace(/\.[^.]+$/, '.jpg');
+              resolve(new File([blob], name, { type: 'image/jpeg' }));
+            },
+            'image/jpeg',
+            0.8
+          );
+        };
+        img.onerror = () => resolve(file);
+        img.src = URL.createObjectURL(file);
+      });
+    };
+
     e.preventDefault();
     if (!isEdit && imageFiles.length === 0) {
       addToast('Ajoutez au moins une image', 'error');
@@ -199,8 +226,14 @@ export default function AdminCarForm() {
       formData.append('isActive', form.isActive ? 'true' : 'false');
       if (form.imageUrl) formData.append('imageUrl', form.imageUrl);
       
-      // Add image files (sorted so 1.webp, 2.webp… become image principale en premier)
-      [...imageFiles]
+      // Add image files (compressed to avoid limite serverless, triées 1.webp, 2.webp…)
+      const compressedFiles = await Promise.all(imageFiles.map(f => compressImage(f)));
+      const totalSize = compressedFiles.reduce((s, f) => s + f.size, 0);
+      if (totalSize > 5 * 1024 * 1024) {
+        addToast('Total des images trop volumineux pour l\'upload. Envoyez moins d\'images ou compressez davantage.', 'error');
+        return;
+      }
+      compressedFiles
         .sort((a, b) => a.name.localeCompare(b.name, undefined, { numeric: true }))
         .forEach((file) => formData.append('images', file));
       
