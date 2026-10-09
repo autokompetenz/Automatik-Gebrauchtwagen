@@ -17,6 +17,39 @@ const INFO_TITLE = {
   ar: 'معلومات إضافية عن المركبة',
 };
 
+// Parse a pasted vehicle-info block made of sections and "Label : value" lines
+function parseVehicleInfo(text) {
+  if (!text) return [];
+  const sections = [];
+  let current = { title: null, rows: [], notes: [] };
+  const flush = () => {
+    if (current.title || current.rows.length || current.notes.length) sections.push(current);
+    current = { title: null, rows: [], notes: [] };
+  };
+  for (const raw of String(text).split(/\r?\n/)) {
+    const line = raw.trim();
+    if (!line) { flush(); continue; }
+    const isHeading = line.length <= 60
+      && line === line.toUpperCase()
+      && /[A-ZÀ-ÖØ-Þ]/.test(line)
+      && !line.includes(':');
+    if (isHeading) { flush(); current.title = line; continue; }
+    const idx = line.indexOf(':');
+    if (idx > 0) {
+      const label = line.slice(0, idx).trim();
+      const value = line.slice(idx + 1).trim();
+      if (label && value) { current.rows.push({ label, value }); continue; }
+    }
+    if (!current.title && current.rows.length === 0 && current.notes.length === 0) {
+      current.title = line;
+    } else {
+      current.notes.push(line);
+    }
+  }
+  flush();
+  return sections;
+}
+
 const SPEC_LABELS = {
   fr: { year:'Année', power:'Puissance', fuel:'Carburant', gear:'Boîte', km:'Kilométrage', color:'Couleur', new:'Neuf' },
   en: { year:'Year', power:'Power', fuel:'Fuel', gear:'Gearbox', km:'Mileage', color:'Colour', new:'New' },
@@ -145,6 +178,9 @@ export default function CarDetails() {
   const specsFromDescription = (car?.technicalData && Object.keys(car.technicalData).length > 0)
     ? null
     : parseSpecsFromDescription(car?.description || '');
+
+  const infoSections = parseVehicleInfo(car?.description || '');
+  const hasStructuredInfo = infoSections.some(s => s.rows.length > 0);
 
   const images = IMAGE_FIELDS.map(f => car?.[f]).filter(Boolean);
 
@@ -384,9 +420,34 @@ export default function CarDetails() {
                 }}>
                   {INFO_TITLE[lang] || INFO_TITLE.fr}
                 </h3>
-                <p style={{ fontSize: 15, color: C.text2, lineHeight: 1.75, borderLeft: '2px solid rgba(19,40,83,0.25)', paddingLeft: 18 }}>
-                  {car.description}
-                </p>
+                {hasStructuredInfo ? (
+                  <div style={{ background: C.card2, border: `1px solid ${C.border}`, borderRadius: 12, padding: isMobile ? '16px 14px' : '18px 20px' }}>
+                    {infoSections.map((sec, si) => (
+                      <div key={si} style={{ marginTop: si === 0 ? 0 : (isMobile ? 18 : 22) }}>
+                        {sec.title && (
+                          <p style={{ fontSize: 11, fontWeight: 800, letterSpacing: '0.18em', textTransform: 'uppercase', color: C.red, marginBottom: 8 }}>
+                            {sec.title}
+                          </p>
+                        )}
+                        {sec.rows.map((row, ri) => (
+                          <div key={ri} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', gap: 16, padding: '7px 0', borderBottom: `1px solid ${C.border}` }}>
+                            <span style={{ fontSize: 13, color: C.text3 }}>{row.label}</span>
+                            <span style={{ fontSize: 13, fontWeight: 600, color: C.text, textAlign: 'right' }}>{row.value}</span>
+                          </div>
+                        ))}
+                        {sec.notes.length > 0 && (
+                          <p style={{ fontSize: 14, color: C.text2, lineHeight: 1.7, marginTop: 6 }}>
+                            {sec.notes.join(' ')}
+                          </p>
+                        )}
+                      </div>
+                    ))}
+                  </div>
+                ) : (
+                  <p style={{ fontSize: 15, color: C.text2, lineHeight: 1.75, whiteSpace: 'pre-line', borderLeft: '2px solid rgba(19,40,83,0.25)', paddingLeft: 18 }}>
+                    {car.description}
+                  </p>
+                )}
               </div>
             )}
 
