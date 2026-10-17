@@ -38,7 +38,7 @@ export default function Contact() {
     }
 
     const waText = [
-      `💬 *Nouveau message — Automatik Gebrauchtwagen*`,
+      `💬 *Nouveau message — AS Autohandel GmbH*`,
       ``,
       `Nom : ${form.name}`,
       `Email : ${form.email || '—'}`,
@@ -75,7 +75,7 @@ export default function Contact() {
   };
 
   const contactCards = [
-    { icon: '📍', title: t({ fr:'Adresse', en:'Address', de:'Adresse', es:'Dirección', it:'Indirizzo', pt:'Morada', ro:'Adresă' }), lines: ['Franz-Julius-Haenel-Str. 3', '06618 Naumburg, Allemagne'] },
+    { icon: '📍', title: t({ fr:'Adresse', en:'Address', de:'Adresse', es:'Dirección', it:'Indirizzo', pt:'Morada', ro:'Adresă' }), lines: ['Sprendlinger Straße 119', '63069 Offenbach am Main, Allemagne'] },
     { icon: '📞', title: t({ fr:'Téléphone', en:'Phone', de:'Telefon', es:'Teléfono', it:'Telefono', pt:'Telefone', ro:'Telefon' }), lines: ['+49 163 043 63 38', t({ fr:'Lun–Ven 9h–18h', en:'Mon–Fri 9am–6pm', de:'Mo–Fr 9–18 Uhr', es:'Lun–Vie 9–18h', it:'Lun–Ven 9–18', pt:'Seg–Sex 9–18h', ro:'Lun–Vin 9–18h' })] },
     { icon: '✉', title: t({ fr:'Email', en:'Email', de:'E-Mail', es:'Email', it:'Email', pt:'Email', ro:'Email' }), lines: ['kontakt@automatikgebrauchtwagen.com', t({ fr:'Réponse sous 24h', en:'Reply within 24h', de:'Antwort innerhalb von 24h', es:'Respuesta en 24h', it:'Risposta entro 24h', pt:'Resposta em 24h', ro:'Răspuns în 24h' })] },
     { icon: '💬', title: 'WhatsApp', lines: ['+49 163 043 63 38', t({ fr:'Réponse immédiate', en:'Immediate reply', de:'Sofortige Antwort', es:'Respuesta inmediata', it:'Risposta immediata', pt:'Resposta imediata', ro:'Răspuns imediat' })] },
@@ -250,7 +250,7 @@ export default function Contact() {
               </div>
 
               <a
-                href="https://www.google.com/maps/search/?api=1&query=Franz-Julius-Haenel-Str.+3+06618+Naumburg"
+                href="https://www.google.com/maps/search/?api=1&query=Franz-Julius-Haenel-Str.+3+06618+Offenbach"
                 target="_blank" rel="noopener noreferrer"
                 style={{ textDecoration:'none', display:'block', borderRadius:20, overflow:'hidden', border:`1px solid ${C.border}`, boxShadow:C.shadow }}
               >
@@ -268,7 +268,7 @@ export default function Contact() {
                     position:'absolute', bottom:18, left:0, right:0, textAlign:'center', zIndex:1,
                     color:'#fff', fontFamily:"'Helvetica Neue',Helvetica,Arial,sans-serif", fontSize:13, fontWeight:700, letterSpacing:'0.08em', textShadow:'0 1px 4px rgba(0,0,0,0.6)'
                   }}>
-                    Franz-Julius-Haenel-Str. 3, 06618 Naumburg
+                    Sprendlinger Straße 119, 63069 Offenbach am Main
                   </span>
                 </div>
               </a>

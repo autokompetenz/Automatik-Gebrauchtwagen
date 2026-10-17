@@ -7,11 +7,11 @@ const LEGAL_PAGES = {
   '/mentions-legales': {
     fr: { title: 'Mentions Légales', content: `
 <h2>Éditeur du site</h2>
-<p><strong>Automatik Gebrauchtwagen</strong><br/>
-Franz-Julius-Haenel-Str. 3<br/>
-06618 Naumburg, Allemagne<br/>
-N° registre : DEW1215.HRB207153<br/>
-Capital social : 230.000,00 €</p>
+<p><strong>AS Autohandel GmbH</strong><br/>
+Sprendlinger Straße 119<br/>
+63069 Offenbach am Main, Allemagne<br/>
+N° registre : DEM1114.HRB50855<br/>
+Capital social : 250.000.000,00 €</p>
 <h2>Forme juridique</h2>
 <p>Gesellschaft mit beschränkter Haftung (GmbH) — société à responsabilité limitée de droit allemand.</p>
 <h2>Dirigeant</h2>
@@ -21,12 +21,12 @@ Capital social : 230.000,00 €</p>
 <h2>Hébergement</h2>
 <p>Vercel Inc., 340 Pine Street, San Francisco, CA 94104, USA.<br/>Base de données : Supabase Inc., Singapore.</p>
 <h2>Propriété intellectuelle</h2>
-<p>Tout le contenu est la propriété exclusive d'Automatik Gebrauchtwagen. Reproduction interdite sans autorisation.</p>
+<p>Tout le contenu est la propriété exclusive d'AS Autohandel GmbH. Reproduction interdite sans autorisation.</p>
 <h2>Droit applicable</h2>
-<p>Droit allemand (TMG). Juridiction compétente : Naumburg.</p>` },
+<p>Droit allemand (TMG). Juridiction compétente : Offenbach.</p>` },
     en: { title: 'Legal Notice', content: `
 <h2>Publisher</h2>
-<p><strong>Automatik Gebrauchtwagen</strong><br/>Franz-Julius-Haenel-Str. 3, 06618 Naumburg, Germany<br/>Reg. No.: DEW1215.HRB207153 — Share capital: €230,000.00</p>
+<p><strong>AS Autohandel GmbH</strong><br/>Sprendlinger Straße 119, 63069 Offenbach am Main, Germany<br/>Reg. No.: DEM1114.HRB50855 — Share capital: €250,000,000.00</p>
 <h2>Managing Director</h2>
 <p>Ronny Reinsberger, Geschäftsführer.</p>
 <h2>Business Activity</h2>
@@ -34,10 +34,10 @@ Capital social : 230.000,00 €</p>
 <h2>Hosting</h2>
 <p>Vercel Inc., San Francisco, USA. Database: Supabase Inc., Singapore.</p>
 <h2>Applicable Law</h2>
-<p>German law (TMG). Courts of Naumburg.</p>` },
+<p>German law (TMG). Courts of Offenbach.</p>` },
     de: { title: 'Impressum', content: `
 <h2>Angaben gemäß § 5 TMG</h2>
-<p><strong>Automatik Gebrauchtwagen</strong><br/>Franz-Julius-Haenel-Str. 3, 06618 Naumburg<br/>HRB 207153 — Stammkapital: 230.000,00 €</p>
+<p><strong>AS Autohandel GmbH</strong><br/>Sprendlinger Straße 119, 63069 Offenbach am Main<br/>HRB 50855 — Stammkapital: 250.000.000,00 €</p>
 <h2>Geschäftsführer</h2>
 <p>Ronny Reinsberger</p>
 <h2>Tätigkeit</h2>
@@ -45,10 +45,10 @@ Capital social : 230.000,00 €</p>
 <h2>Hosting</h2>
 <p>Vercel Inc., San Francisco, USA. Datenbank: Supabase Inc., Singapur.</p>
 <h2>Gerichtsstand</h2>
-<p>Deutsches Recht. Gerichtsstand: Naumburg.</p>` },
+<p>Deutsches Recht. Gerichtsstand: Offenbach.</p>` },
     es: { title: 'Aviso Legal', content: `
 <h2>Editor</h2>
-<p><strong>Automatik Gebrauchtwagen</strong><br/>Franz-Julius-Haenel-Str. 3, 06618 Naumburg, Alemania<br/>Reg. No.: DEW1215.HRB207153 — Capital social: 230.000,00 €</p>
+<p><strong>AS Autohandel GmbH</strong><br/>Sprendlinger Straße 119, 63069 Offenbach am Main, Alemania<br/>Reg. No.: DEM1114.HRB50855 — Capital social: 250.000.000,00 €</p>
 <h2>Director</h2>
 <p>Ronny Reinsberger, Geschäftsführer.</p>
 <h2>Actividad</h2>
@@ -56,10 +56,10 @@ Capital social : 230.000,00 €</p>
 <h2>Alojamiento</h2>
 <p>Vercel Inc., San Francisco, EE.UU. Base de datos: Supabase Inc., Singapur.</p>
 <h2>Ley aplicable</h2>
-<p>Derecho alemán (TMG). Tribunales de Naumburg.</p>` },
+<p>Derecho alemán (TMG). Tribunales de Offenbach.</p>` },
     it: { title: 'Note Legali', content: `
 <h2>Editore</h2>
-<p><strong>Automatik Gebrauchtwagen</strong><br/>Franz-Julius-Haenel-Str. 3, 06618 Naumburg, Germania<br/>Reg. No.: DEW1215.HRB207153 — Capitale sociale: 230.000,00 €</p>
+<p><strong>AS Autohandel GmbH</strong><br/>Sprendlinger Straße 119, 63069 Offenbach am Main, Germania<br/>Reg. No.: DEM1114.HRB50855 — Capitale sociale: 250.000.000,00 €</p>
 <h2>Amministratore</h2>
 <p>Ronny Reinsberger, Geschäftsführer.</p>
 <h2>Attività</h2>
@@ -67,10 +67,10 @@ Capital social : 230.000,00 €</p>
 <h2>Hosting</h2>
 <p>Vercel Inc., San Francisco, USA. Database: Supabase Inc., Singapore.</p>
 <h2>Legge applicabile</h2>
-<p>Diritto tedesco (TMG). Tribunali di Naumburg.</p>` },
+<p>Diritto tedesco (TMG). Tribunali di Offenbach.</p>` },
     pt: { title: 'Aviso Legal', content: `
 <h2>Editor</h2>
-<p><strong>Automatik Gebrauchtwagen</strong><br/>Franz-Julius-Haenel-Str. 3, 06618 Naumburg, Alemanha<br/>Reg. No.: DEW1215.HRB207153 — Capital social: 230.000,00 €</p>
+<p><strong>AS Autohandel GmbH</strong><br/>Sprendlinger Straße 119, 63069 Offenbach am Main, Alemanha<br/>Reg. No.: DEM1114.HRB50855 — Capital social: 250.000.000,00 €</p>
 <h2>Diretor</h2>
 <p>Ronny Reinsberger, Geschäftsführer.</p>
 <h2>Atividade</h2>
@@ -78,10 +78,10 @@ Capital social : 230.000,00 €</p>
 <h2>Hospedagem</h2>
 <p>Vercel Inc., São Francisco, EUA. Base de dados: Supabase Inc., Singapura.</p>
 <h2>Lei aplicável</h2>
-<p>Direito alemão (TMG). Tribunais de Naumburg.</p>` },
+<p>Direito alemão (TMG). Tribunais de Offenbach.</p>` },
     ro: { title: 'Informații Legale', content: `
 <h2>Editor</h2>
-<p><strong>Automatik Gebrauchtwagen</strong><br/>Franz-Julius-Haenel-Str. 3, 06618 Naumburg, Germania<br/>Nr. registru: DEW1215.HRB207153 — Capital social: 230.000,00 €</p>
+<p><strong>AS Autohandel GmbH</strong><br/>Sprendlinger Straße 119, 63069 Offenbach am Main, Germania<br/>Nr. registru: DEM1114.HRB50855 — Capital social: 250.000.000,00 €</p>
 <h2>Formă juridică</h2>
 <p>Gesellschaft mit beschränkter Haftung (GmbH) — societate cu răspundere limitată de drept german.</p>
 <h2>Director general</h2>
@@ -91,13 +91,13 @@ Capital social : 230.000,00 €</p>
 <h2>Găzduire</h2>
 <p>Vercel Inc., San Francisco, SUA. Bază de date: Supabase Inc., Singapore.</p>
 <h2>Drept aplicabil</h2>
-<p>Dreptul german (TMG). Instanțe competente: Naumburg.</p>` },
+<p>Dreptul german (TMG). Instanțe competente: Offenbach.</p>` },
   },
 
   '/politique-confidentialite': {
     fr: { title: 'Politique de Confidentialité', content: `
 <h2>1. Responsable du traitement</h2>
-<p>Automatik Gebrauchtwagen, Franz-Julius-Haenel-Str. 3, 06618 Naumburg — kontakt@automatikgebrauchtwagen.com</p>
+<p>AS Autohandel GmbH, Sprendlinger Straße 119, 63069 Offenbach am Main — kontakt@automatikgebrauchtwagen.com</p>
 <h2>2. Données collectées</h2>
 <ul><li>Nom, prénom, email, téléphone, adresse</li><li>Salaire mensuel (simulation financement)</li><li>Historique des commandes</li></ul>
 <h2>3. Base légale (RGPD)</h2>
@@ -108,7 +108,7 @@ Capital social : 230.000,00 €</p>
 <p>Mots de passe chiffrés (bcrypt), JWT avec expiration, connexions HTTPS.</p>` },
     en: { title: 'Privacy Policy', content: `
 <h2>1. Data Controller</h2>
-<p>Automatik Gebrauchtwagen, Franz-Julius-Haenel-Str. 3, 06618 Naumburg — kontakt@automatikgebrauchtwagen.com</p>
+<p>AS Autohandel GmbH, Sprendlinger Straße 119, 63069 Offenbach am Main — kontakt@automatikgebrauchtwagen.com</p>
 <h2>2. Data Collected</h2>
 <ul><li>Name, email, phone, address</li><li>Monthly salary (financing simulation)</li><li>Order history</li></ul>
 <h2>3. Legal Basis (GDPR)</h2>
@@ -117,7 +117,7 @@ Capital social : 230.000,00 €</p>
 <p>Access, rectify, erase, port, object. Contact: kontakt@automatikgebrauchtwagen.com</p>` },
     de: { title: 'Datenschutzerklärung', content: `
 <h2>1. Verantwortlicher</h2>
-<p>Automatik Gebrauchtwagen, Franz-Julius-Haenel-Str. 3, 06618 Naumburg — kontakt@automatikgebrauchtwagen.com</p>
+<p>AS Autohandel GmbH, Sprendlinger Straße 119, 63069 Offenbach am Main — kontakt@automatikgebrauchtwagen.com</p>
 <h2>2. Erhobene Daten</h2>
 <ul><li>Name, E-Mail, Telefon, Adresse</li><li>Monatsgehalt (Finanzierungssimulation)</li><li>Bestellhistorie</li></ul>
 <h2>3. Rechtsgrundlage (DSGVO)</h2>
@@ -126,28 +126,28 @@ Capital social : 230.000,00 €</p>
 <p>Auskunft, Berichtigung, Löschung, Widerspruch. Kontakt: kontakt@automatikgebrauchtwagen.com</p>` },
     es: { title: 'Política de Privacidad', content: `
 <h2>1. Responsable</h2>
-<p>Automatik Gebrauchtwagen — kontakt@automatikgebrauchtwagen.com</p>
+<p>AS Autohandel GmbH — kontakt@automatikgebrauchtwagen.com</p>
 <h2>2. Datos recopilados</h2>
 <ul><li>Nombre, email, teléfono, dirección</li><li>Salario mensual (simulación)</li><li>Historial de pedidos</li></ul>
 <h2>3. Sus derechos (RGPD)</h2>
 <p>Acceso, rectificación, supresión, portabilidad, oposición. Contacto: kontakt@automatikgebrauchtwagen.com</p>` },
     it: { title: 'Informativa sulla Privacy', content: `
 <h2>1. Titolare del trattamento</h2>
-<p>Automatik Gebrauchtwagen — kontakt@automatikgebrauchtwagen.com</p>
+<p>AS Autohandel GmbH — kontakt@automatikgebrauchtwagen.com</p>
 <h2>2. Dati raccolti</h2>
 <ul><li>Nome, email, telefono, indirizzo</li><li>Stipendio mensile (simulazione)</li><li>Storico ordini</li></ul>
 <h2>3. I vostri diritti (GDPR)</h2>
 <p>Accesso, rettifica, cancellazione, portabilità, opposizione. Contatto: kontakt@automatikgebrauchtwagen.com</p>` },
     pt: { title: 'Política de Privacidade', content: `
 <h2>1. Responsável</h2>
-<p>Automatik Gebrauchtwagen — kontakt@automatikgebrauchtwagen.com</p>
+<p>AS Autohandel GmbH — kontakt@automatikgebrauchtwagen.com</p>
 <h2>2. Dados recolhidos</h2>
 <ul><li>Nome, email, telefone, endereço</li><li>Salário mensal (simulação)</li><li>Histórico de pedidos</li></ul>
 <h2>3. Os seus direitos (RGPD)</h2>
 <p>Acesso, retificação, eliminação, portabilidade, oposição. Contacto: kontakt@automatikgebrauchtwagen.com</p>` },
     ro: { title: 'Politica de Confidențialitate', content: `
 <h2>1. Operatorul datelor</h2>
-<p>Automatik Gebrauchtwagen — kontakt@automatikgebrauchtwagen.com</p>
+<p>AS Autohandel GmbH — kontakt@automatikgebrauchtwagen.com</p>
 <h2>2. Date colectate</h2>
 <ul><li>Nume, prenume, email, telefon, adresă</li><li>Salariu lunar (simulare finanțare)</li><li>Istoricul comenzilor</li></ul>
 <h2>3. Baza legală (GDPR)</h2>
@@ -161,7 +161,7 @@ Capital social : 230.000,00 €</p>
   '/cgv': {
     fr: { title: 'Conditions Générales de Vente', content: `
 <h2>Article 1 — Objet</h2>
-<p>Les présentes CGV régissent les relations entre Automatik Gebrauchtwagen et tout acheteur via le site.</p>
+<p>Les présentes CGV régissent les relations entre AS Autohandel GmbH et tout acheteur via le site.</p>
 <h2>Article 2 — Prix</h2>
 <p>Prix en Euros (€) TTC. Modifiables à tout moment.</p>
 <h2>Article 3 — Paiement</h2>
@@ -172,7 +172,7 @@ Capital social : 230.000,00 €</p>
 <p>Droit allemand. Juridiction : Osnabrück.</p>` },
     en: { title: 'Terms and Conditions', content: `
 <h2>Article 1 — Subject</h2>
-<p>These T&Cs govern purchases from Automatik Gebrauchtwagen.</p>
+<p>These T&Cs govern purchases from AS Autohandel GmbH.</p>
 <h2>Article 2 — Payment</h2>
 <ul><li>Full payment: 5% discount</li><li>25% deposit: balance on delivery</li><li>25% deposit + Monthly: 75% financed over 60 instalments at 6%/year</li></ul>
 <h2>Article 3 — Withdrawal</h2>
@@ -181,7 +181,7 @@ Capital social : 230.000,00 €</p>
 <p>German law. Courts of Osnabrück.</p>` },
     de: { title: 'Allgemeine Geschäftsbedingungen', content: `
 <h2>§ 1 Geltungsbereich</h2>
-<p>Diese AGB gelten für alle Verträge mit Automatik Gebrauchtwagen.</p>
+<p>Diese AGB gelten für alle Verträge mit AS Autohandel GmbH.</p>
 <h2>§ 2 Zahlung</h2>
 <ul><li>Vollzahlung: 5% Rabatt</li><li>Anzahlung 25%: Rest bei Lieferung</li><li>Anzahlung 25% + Raten: 75% finanziert über 60 Monate, 6% p.a.</li></ul>
 <h2>§ 3 Widerrufsrecht</h2>
@@ -190,28 +190,28 @@ Capital social : 230.000,00 €</p>
 <p>Deutsches Recht. Gerichtsstand: Osnabrück.</p>` },
     es: { title: 'Condiciones Generales de Venta', content: `
 <h2>Artículo 1 — Objeto</h2>
-<p>Estas CGV rigen las compras a Automatik Gebrauchtwagen.</p>
+<p>Estas CGV rigen las compras a AS Autohandel GmbH.</p>
 <h2>Artículo 2 — Pago</h2>
 <ul><li>Pago completo: 5% descuento</li><li>Señal 25%: resto en entrega</li><li>Cuotas: 60 meses al 6%/año</li></ul>
 <h2>Artículo 3 — Desistimiento</h2>
 <p>14 días desde la recepción (Directiva 2011/83/UE).</p>` },
     it: { title: 'Condizioni Generali di Vendita', content: `
 <h2>Articolo 1 — Oggetto</h2>
-<p>Le presenti CGV regolano gli acquisti da Automatik Gebrauchtwagen.</p>
+<p>Le presenti CGV regolano gli acquisti da AS Autohandel GmbH.</p>
 <h2>Articolo 2 — Pagamento</h2>
 <ul><li>Pagamento completo: 5% sconto</li><li>Acconto 25%: saldo alla consegna</li><li>Rate: 60 mesi al 6%/anno</li></ul>
 <h2>Articolo 3 — Recesso</h2>
 <p>14 giorni dalla ricezione (Direttiva 2011/83/UE).</p>` },
     pt: { title: 'Condições Gerais de Venda', content: `
 <h2>Artigo 1 — Objeto</h2>
-<p>Estas CGV regem as compras à Automatik Gebrauchtwagen.</p>
+<p>Estas CGV regem as compras à AS Autohandel GmbH.</p>
 <h2>Artigo 2 — Pagamento</h2>
 <ul><li>Pagamento integral: 5% desconto</li><li>Entrada 25%: saldo na entrega</li><li>Prestações: 60 meses a 6%/ano</li></ul>
 <h2>Artigo 3 — Desistência</h2>
 <p>14 dias a partir da receção (Diretiva 2011/83/UE).</p>` },
     ro: { title: 'Condiții Generale de Vânzare', content: `
 <h2>Articolul 1 — Obiect</h2>
-<p>Prezentele CGV reglementează achizițiile de la Automatik Gebrauchtwagen.</p>
+<p>Prezentele CGV reglementează achizițiile de la AS Autohandel GmbH.</p>
 <h2>Articolul 2 — Preț</h2>
 <p>Prețuri în Euro (€) TVA inclus. Modificabile oricând.</p>
 <h2>Articolul 3 — Plată</h2>

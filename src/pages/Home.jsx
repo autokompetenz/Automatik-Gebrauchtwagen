@@ -95,12 +95,12 @@ const getPurchaseSteps = (l) => [
 // ── FAQ DATA ────────────────────────────────────────────────────────────────
 const getFAQ = (l) => [
   {
-    fr: { q: 'Vos véhicules sont-ils garantis ?', a: 'Oui, absolument. Chaque véhicule vendu est couvert par notre garantie Automatik Gebrauchtwagen d\'au moins 12 mois ou 10 000 km, incluant la protection moteur et boîte de vitesse. Des extensions jusqu\'à 36 mois sont disponibles à la commande.' },
-    en: { q: 'Are your vehicles guaranteed?', a: 'Yes, absolutely. Every vehicle sold comes with our Automatik Gebrauchtwagen warranty of at least 12 months or 10,000 km, covering engine and transmission. Extensions up to 36 months are available at the time of order.' },
-    de: { q: 'Sind Ihre Fahrzeuge garantiert?', a: 'Ja, absolut. Jedes verkaufte Fahrzeug ist durch unsere Automatik Gebrauchtwagen Garantie von mindestens 12 Monaten oder 10.000 km abgedeckt, einschließlich Motor- und Getriebeschutz. Verlängerungen bis zu 36 Monaten sind bei der Bestellung verfügbar.' },
-    es: { q: '¿Sus vehículos tienen garantía?', a: 'Sí, absolutamente. Cada vehículo vendido está cubierto por nuestra garantía Automatik Gebrauchtwagen de al menos 12 meses o 10.000 km, incluida la protección del motor y la caja de cambios. Se pueden contratar extensiones de hasta 36 meses al hacer el pedido.' },
-    it: { q: 'I vostri veicoli sono garantiti?', a: 'Sì, assolutamente. Ogni veicolo venduto è coperto dalla nostra garanzia Automatik Gebrauchtwagen di almeno 12 mesi o 10.000 km, che include la protezione del motore e del cambio. Sono disponibili estensioni fino a 36 mesi al momento dell\'ordine.' },
-    pt: { q: 'Os seus veículos têm garantia?', a: 'Sim, absolutamente. Cada veículo vendido é coberto pela nossa garantia Automatik Gebrauchtwagen de pelo menos 12 meses ou 10.000 km, incluindo proteção de motor e caixa de velocidades. Extensões até 36 meses estão disponíveis no momento da encomenda.' },
+    fr: { q: 'Vos véhicules sont-ils garantis ?', a: 'Oui, absolument. Chaque véhicule vendu est couvert par notre garantie AS Autohandel GmbH d\'au moins 12 mois ou 10 000 km, incluant la protection moteur et boîte de vitesse. Des extensions jusqu\'à 36 mois sont disponibles à la commande.' },
+    en: { q: 'Are your vehicles guaranteed?', a: 'Yes, absolutely. Every vehicle sold comes with our AS Autohandel GmbH warranty of at least 12 months or 10,000 km, covering engine and transmission. Extensions up to 36 months are available at the time of order.' },
+    de: { q: 'Sind Ihre Fahrzeuge garantiert?', a: 'Ja, absolut. Jedes verkaufte Fahrzeug ist durch unsere AS Autohandel GmbH Garantie von mindestens 12 Monaten oder 10.000 km abgedeckt, einschließlich Motor- und Getriebeschutz. Verlängerungen bis zu 36 Monaten sind bei der Bestellung verfügbar.' },
+    es: { q: '¿Sus vehículos tienen garantía?', a: 'Sí, absolutamente. Cada vehículo vendido está cubierto por nuestra garantía AS Autohandel GmbH de al menos 12 meses o 10.000 km, incluida la protección del motor y la caja de cambios. Se pueden contratar extensiones de hasta 36 meses al hacer el pedido.' },
+    it: { q: 'I vostri veicoli sono garantiti?', a: 'Sì, assolutamente. Ogni veicolo venduto è coperto dalla nostra garanzia AS Autohandel GmbH di almeno 12 mesi o 10.000 km, che include la protezione del motore e del cambio. Sono disponibili estensioni fino a 36 mesi al momento dell\'ordine.' },
+    pt: { q: 'Os seus veículos têm garantia?', a: 'Sim, absolutamente. Cada veículo vendido é coberto pela nossa garantia AS Autohandel GmbH de pelo menos 12 meses ou 10.000 km, incluindo proteção de motor e caixa de velocidades. Extensões até 36 meses estão disponíveis no momento da encomenda.' },
   },
   {
     fr: { q: 'Proposez-vous du financement ?', a: 'Oui. Nous travaillons avec plusieurs partenaires bancaires pour vous proposer des crédits auto sur mesure, à des taux compétitifs. Vous renseignez votre dossier, nous montons le financement et vous obtenez une réponse de principe sous 24h ouvrées.' },
@@ -545,7 +545,7 @@ function VideoSection({ isMobile }) {
         </h2>
 
         <p style={{ fontSize: isMobile ? 14 : 17, color:'rgba(255,255,255,0.75)', lineHeight:1.7, maxWidth:560, margin:'0 auto 36px', fontWeight:300 }}>
-          {l==='fr'?'Des véhicules d\'exception, une expertise allemande depuis 1979. Découvrez notre univers.':l==='en'?'Exceptional vehicles, German expertise since 1979. Discover our world.':l==='de'?'Außergewöhnliche Fahrzeuge, deutsche Kompetenz seit 1979. Entdecken Sie unsere Welt.':l==='es'?'Vehículos excepcionales, experiencia alemana desde 1979. Descubra nuestro mundo.':l==='it'?'Veicoli eccezionali, competenza tedesca dal 1979. Scoprite il nostro mondo.':'Veículos excecionais, experiência alemã desde 1979. Descubra o nosso mundo.'}
+          {l==='fr'?'Des véhicules d\'exception, une expertise allemande depuis 2018. Découvrez notre univers.':l==='en'?'Exceptional vehicles, German expertise since 2018. Discover our world.':l==='de'?'Außergewöhnliche Fahrzeuge, deutsche Kompetenz seit 2018. Entdecken Sie unsere Welt.':l==='es'?'Vehículos excepcionales, experiencia alemana desde 2018. Descubra nuestro mundo.':l==='it'?'Veicoli eccezionali, competenza tedesca dal 2018. Scoprite il nostro mondo.':'Veículos excecionais, experiência alemã desde 2018. Descubra o nosso mundo.'}
         </p>
 
         <Link to="/catalog" style={{
@@ -1370,7 +1370,7 @@ export default function Home() {
               onMouseOut={e=>{e.currentTarget.style.borderColor='var(--border)'; e.currentTarget.style.transform='none'; e.currentTarget.style.boxShadow='var(--shadow-sm)';}}>
               <div style={{ width:56, height:56, borderRadius:12, background:'linear-gradient(135deg,rgba(19,40,83,0.15),rgba(19,40,83,0.05))', display:'flex', alignItems:'center', justifyContent:'center', fontSize:28, marginBottom:20 }}>🛡️</div>
               <h3 style={{ fontFamily:"'Helvetica Neue',Helvetica,Arial,sans-serif", fontWeight:800, fontSize: isMobile ? 18 : 20, color:'var(--text)', marginBottom:12 }}>
-                {l==='fr'?'Garantie Automatik Gebrauchtwagen':l==='en'?'Automatik Gebrauchtwagen Warranty':l==='de'?'Automatik Gebrauchtwagen Garantie':l==='es'?'Garantía Automatik Gebrauchtwagen':l==='it'?'Garanzia Automatik Gebrauchtwagen':'Garantia Automatik Gebrauchtwagen'}
+                {l==='fr'?'Garantie AS Autohandel GmbH':l==='en'?'AS Autohandel GmbH Warranty':l==='de'?'AS Autohandel GmbH Garantie':l==='es'?'Garantía AS Autohandel GmbH':l==='it'?'Garanzia AS Autohandel GmbH':'Garantia AS Autohandel GmbH'}
               </h3>
               <p style={{ fontSize:14, color:'var(--text-3)', lineHeight:1.6, marginBottom:20 }}>
                 {l==='fr'?'Incluse dans toutes les commandes. Valable 12 mois ou 10 000 km. Protection moteur, boîte de vitesse, hors pièces d\'usure.':l==='en'?'Included in all orders. Valid 12 months or 10,000 km. Engine and transmission protection, excluding wear parts.':l==='de'?'In allen Bestellungen enthalten. Gültig 12 Monate oder 10.000 km. Motor- und Getriebeschutz, Verschleißteile ausgeschlossen.':l==='es'?'Incluida en todos los pedidos. Válida 12 meses o 10.000 km. Protección de motor y transmisión, excluyendo piezas de desgaste.':l==='it'?'Inclusa in tutti gli ordini. Valida 12 mesi o 10.000 km. Protezione motore e trasmissione, esclusi pezzi di usura.':'Incluída em todos os pedidos. Válida 12 meses ou 10.000 km. Proteção de motor e transmissão, excluindo peças de desgaste.'}
@@ -1514,7 +1514,7 @@ export default function Home() {
             ))}
             <div style={{ marginTop:20, padding:'14px 18px', background:'var(--red-bg)', border:'1px solid var(--red-border)', borderRadius:8 }}>
               <p style={{ fontSize:13, color:'var(--text-2)', lineHeight:1.6 }}>
-                📍 Franz-Julius-Haenel-Str. 3, 06618 Naumburg<br/>
+                📍 Sprendlinger Straße 119, 63069 Offenbach am Main<br/>
                 📞 <a href="tel:+491630436338" style={{ color:'var(--red)', textDecoration:'none', fontWeight:600 }}>+49 163 043 63 38</a>
               </p>
             </div>
@@ -1528,7 +1528,7 @@ export default function Home() {
           <div style={{ display:'grid', gridTemplateColumns: isMobile ? '1fr' : 'auto 1fr auto', gap: isMobile ? 28 : 48, alignItems:'start' }}>
             <div>
               <div style={{ fontFamily:"'Helvetica Neue',Helvetica,Arial,sans-serif", fontSize:15, fontWeight:800, color:'var(--text)', letterSpacing:'0.08em' }}>AUTOMATIK</div>
-              <div style={{ fontSize:8, letterSpacing:'0.35em', color:'var(--red)', textTransform:'uppercase', marginTop:3, marginBottom:14, fontWeight:500 }}>Gebrauchtwagen · Naumburg</div>
+              <div style={{ fontSize:8, letterSpacing:'0.35em', color:'var(--red)', textTransform:'uppercase', marginTop:3, marginBottom:14, fontWeight:500 }}>Gebrauchtwagen · Offenbach</div>
               <p style={{ fontSize:13, color:'var(--text-3)', lineHeight:1.6, maxWidth:240, fontWeight:300 }}>
                 {l==='fr'?'Votre partenaire automobile de confiance en Allemagne.':l==='en'?'Your trusted car partner in Germany.':l==='de'?'Ihr vertrauenswürdiger Autopartner in Deutschland.':l==='es'?'Su socio de confianza en Alemania.':l==='it'?'Il vostro partner automobilistico di fiducia in Germania.':'Seu parceiro automobilístico de confiança na Alemanha.'}
               </p>
@@ -1574,7 +1574,7 @@ export default function Home() {
           </div>
           <div style={{ height:1, background:'var(--border)', margin:'28px 0 20px' }} />
           <div style={{ display:'flex', justifyContent:'space-between', alignItems:'center', flexWrap:'wrap', gap:10 }}>
-            <p style={{ fontSize:12, color:'var(--text-3)' }}>© {new Date().getFullYear()} Automatik Gebrauchtwagen. {t('copyright', l)}.</p>
+            <p style={{ fontSize:12, color:'var(--text-3)' }}>© {new Date().getFullYear()} AS Autohandel GmbH. {t('copyright', l)}.</p>
             <p style={{ fontSize:12, color:'var(--text-3)' }}>{t('made_in', l)}</p>
           </div>
         </div>

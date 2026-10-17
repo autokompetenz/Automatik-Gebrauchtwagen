@@ -6,13 +6,13 @@ import { useLangStore, useThemeStore } from '../store';
 const WA = '+491630436338';
 const WA_DISPLAY = '+49 163 043 63 38';
 const EMAIL = 'kontakt@automatikgebrauchtwagen.com';
-const ADDRESS = 'Franz-Julius-Haenel-Str. 3, 06618 Naumburg';
+const ADDRESS = 'Sprendlinger Straße 119, 63069 Offenbach am Main';
 const SITE_URL = 'automatikgebrauchtwagen.com';
 
 /* ─── Knowledge Base ─── */
 const R = {
   fr: {
-    bonjour: "Bonjour ! Je suis l'assistant Automatik Gebrauchtwagen \ud83d\udc4b\n\nPosez-moi vos questions sur :\n\ud83d\udd52 Horaires \u2022 \ud83d\udccd Adresse\n\ud83d\ude97 Véhicules \u2022 \ud83d\udcb0 Tarifs\n\ud83d\udd27 Garantie \u2022 \ud83d\udee1\ufe0f Assurance\n\ud83c\udfe1 Livraison \u2022 \ud83d\udcca Financement",
+    bonjour: "Bonjour ! Je suis l'assistant AS Autohandel GmbH \ud83d\udc4b\n\nPosez-moi vos questions sur :\n\ud83d\udd52 Horaires \u2022 \ud83d\udccd Adresse\n\ud83d\ude97 Véhicules \u2022 \ud83d\udcb0 Tarifs\n\ud83d\udd27 Garantie \u2022 \ud83d\udee1\ufe0f Assurance\n\ud83c\udfe1 Livraison \u2022 \ud83d\udcca Financement",
     horaires: "\ud83d\udd52 **Horaires d'ouverture**\n\n\ud83d\udcc5 Lun\u2013Ven : 08h00 \u2013 18h00\n\ud83d\udcc5 Samedi : 09h00 \u2013 14h00\n\u274c Dimanche : Fermé\n\nFermé les jours fériés.",
     prix: "\ud83d\udcb0 **Tarifs compétitifs**\n\nNous proposons des véhicules neufs et d'occasion à prix avantageux.\n\ud83d\udcca Devis gratuit sous 24h\n\ud83d\udcb3 Financement disponible\n\nVoir notre catalogue :\n\ud83d\udd17 " + SITE_URL + "/catalog",
     rdv: "\ud83d\udcc5 **Prendre rendez-vous**\n\nPour une visite ou un essai, contactez-nous :\n\ud83d\udcac WhatsApp : " + WA_DISPLAY + "\n\ud83d\udce7 " + EMAIL + "\n\nNous répondons sous 24h !",
@@ -31,7 +31,7 @@ const R = {
     default: "Merci pour votre message ! Je peux vous renseigner sur :\n\n\ud83d\udd52 Horaires \u2022 \ud83d\udccd Adresse\n\ud83d\ude97 Véhicules \u2022 \ud83d\udcb0 Tarifs\n\ud83d\udee1\ufe0f Assurance \u2022 \ud83d\udcca Financement\n\ud83d\ude9a Livraison \u2022 \ud83d\udd27 Garantie",
   },
   en: {
-    bonjour: "Hello! I'm the Automatik Gebrauchtwagen assistant \ud83d\udc4b\n\nAsk me about:\n\ud83d\udd52 Hours \u2022 \ud83d\udccd Address\n\ud83d\ude97 Vehicles \u2022 \ud83d\udcb0 Pricing\n\ud83d\udd27 Warranty \u2022 \ud83d\udee1\ufe0f Insurance\n\ud83c\udfe1 Delivery \u2022 \ud83d\udcca Financing",
+    bonjour: "Hello! I'm the AS Autohandel GmbH assistant \ud83d\udc4b\n\nAsk me about:\n\ud83d\udd52 Hours \u2022 \ud83d\udccd Address\n\ud83d\ude97 Vehicles \u2022 \ud83d\udcb0 Pricing\n\ud83d\udd27 Warranty \u2022 \ud83d\udee1\ufe0f Insurance\n\ud83c\udfe1 Delivery \u2022 \ud83d\udcca Financing",
     horaires: "\ud83d\udd52 **Opening Hours**\n\n\ud83d\udcc5 Mon\u2013Fri: 08:00 \u2013 18:00\n\ud83d\udcc5 Saturday: 09:00 \u2013 14:00\n\u274c Sunday: Closed\n\nClosed on public holidays.",
     prix: "\ud83d\udcb0 **Competitive Pricing**\n\nWe offer new and used vehicles at great prices.\n\ud83d\udcca Free quote within 24h\n\ud83d\udcb3 Financing available\n\nView our catalogue:\n\ud83d\udd17 " + SITE_URL + "/catalog",
     rdv: "\ud83d\udcc5 **Book an Appointment**\n\nFor a visit or test drive, contact us:\n\ud83d\udcac WhatsApp: " + WA_DISPLAY + "\n\ud83d\udce7 " + EMAIL + "\n\nWe respond within 24h!",
@@ -50,7 +50,7 @@ const R = {
     default: "Thanks for your message! I can help with:\n\n\ud83d\udd52 Hours \u2022 \ud83d\udccd Address\n\ud83d\ude97 Vehicles \u2022 \ud83d\udcb0 Pricing\n\ud83d\udee1\ufe0f Insurance \u2022 \ud83d\udcca Financing\n\ud83d\ude9a Delivery \u2022 \ud83d\udd27 Warranty",
   },
   de: {
-    bonjour: "Hallo! Ich bin der Automatik Gebrauchtwagen Assistent \ud83d\udc4b\n\nFragen Sie mich nach:\n\ud83d\udd52 \u00d6ffnungszeiten \u2022 \ud83d\udccd Adresse\n\ud83d\ude97 Fahrzeuge \u2022 \ud83d\udcb0 Preise\n\ud83d\udd27 Garantie \u2022 \ud83d\udee1\ufe0f Versicherung\n\ud83c\udfe1 Lieferung \u2022 \ud83d\udcca Finanzierung",
+    bonjour: "Hallo! Ich bin der AS Autohandel GmbH Assistent \ud83d\udc4b\n\nFragen Sie mich nach:\n\ud83d\udd52 \u00d6ffnungszeiten \u2022 \ud83d\udccd Adresse\n\ud83d\ude97 Fahrzeuge \u2022 \ud83d\udcb0 Preise\n\ud83d\udd27 Garantie \u2022 \ud83d\udee1\ufe0f Versicherung\n\ud83c\udfe1 Lieferung \u2022 \ud83d\udcca Finanzierung",
     horaires: "\ud83d\udd52 **\u00d6ffnungszeiten**\n\n\ud83d\udcc5 Mo\u2013Fr: 08:00\u201318:00\n\ud83d\udcc5 Sa: 09:00\u201314:00\n\u274c So: Geschlossen\n\nGeschlossen an Feiertagen.",
     prix: "\ud83d\udcb0 **Faire Preise**\n\nWir bieten Neuwagen und Gebrauchtwagen zu besten Preisen an.\n\ud83d\udcca Kostenloses Angebot innerhalb 24h\n\ud83d\udcb3 Finanzierung verf\u00fcgbar\n\nKatalog ansehen:\n\ud83d\udd17 " + SITE_URL + "/catalog",
     rdv: "\ud83d\udcc5 **Termin vereinbaren**\n\nF\u00fcr einen Besuch oder Probefahrt:\n\ud83d\udcac WhatsApp: " + WA_DISPLAY + "\n\ud83d\udce7 " + EMAIL + "\n\nWir antworten innerhalb 24h!",
@@ -69,7 +69,7 @@ const R = {
     default: "Danke! Ich kann Ihnen helfen mit:\n\n\ud83d\udd52 \u00d6ffnungszeiten \u2022 \ud83d\udccd Adresse\n\ud83d\ude97 Fahrzeuge \u2022 \ud83d\udcb0 Preise\n\ud83d\udee1\ufe0f Versicherung \u2022 \ud83d\udcca Finanzierung\n\ud83d\ude9a Lieferung \u2022 \ud83d\udd27 Garantie",
   },
   es: {
-    bonjour: "\u00a1Hola! Soy el asistente de Automatik Gebrauchtwagen \ud83d\udc4b\n\nPreg\u00favntame sobre:\n\ud83d\udd52 Horarios \u2022 \ud83d\udccd Direcci\u00f3n\n\ud83d\ude97 Veh\u00edculos \u2022 \ud83d\udcb0 Precios\n\ud83d\udd27 Garant\u00eda \u2022 \ud83d\udee1\ufe0f Seguro\n\ud83c\udfe1 Entrega \u2022 \ud83d\udcca Financiaci\u00f3n",
+    bonjour: "\u00a1Hola! Soy el asistente de AS Autohandel GmbH \ud83d\udc4b\n\nPreg\u00favntame sobre:\n\ud83d\udd52 Horarios \u2022 \ud83d\udccd Direcci\u00f3n\n\ud83d\ude97 Veh\u00edculos \u2022 \ud83d\udcb0 Precios\n\ud83d\udd27 Garant\u00eda \u2022 \ud83d\udee1\ufe0f Seguro\n\ud83c\udfe1 Entrega \u2022 \ud83d\udcca Financiaci\u00f3n",
     horaires: "\ud83d\udd52 **Horario de apertura**\n\n\ud83d\udcc5 Lun\u2013Vie: 08:00 \u2013 18:00\n\ud83d\udcc5 S\u00e1bado: 09:00 \u2013 14:00\n\u274c Domingo: Cerrado",
     prix: "\ud83d\udcb0 **Precios competitivos**\n\nVeh\u00edculos nuevos y de ocasi\u00f3n.\n\ud83d\udcca Presupuesto gratuito en 24h\n\ud83d\udcb3 Financiaci\u00f3n disponible\n\nCat\u00e1logo:\n\ud83d\udd17 " + SITE_URL + "/catalog",
     rdv: "\ud83d\udcc5 **Cita previa**\n\n\ud83d\udcac WhatsApp: " + WA_DISPLAY + "\n\ud83d\udce7 " + EMAIL + "\n\u00a1Respondemos en 24h!",
@@ -88,7 +88,7 @@ const R = {
     default: "\u00a1Hola! Puedo ayudar con:\n\n\ud83d\udd52 Horarios \u2022 \ud83d\udccd Direcci\u00f3n\n\ud83d\ude97 Veh\u00edculos \u2022 \ud83d\udcb0 Precios\n\ud83d\udee1\ufe0f Seguro \u2022 \ud83d\udcca Financiaci\u00f3n",
   },
   it: {
-    bonjour: "Ciao! Sono l'assistente Automatik Gebrauchtwagen \ud83d\udc4b\n\nChiedimi di:\n\ud83d\udd52 Orari \u2022 \ud83d\udccd Indirizzo\n\ud83d\ude97 Veicoli \u2022 \ud83d\udcb0 Prezzi\n\ud83d\udd27 Garanzia \u2022 \ud83d\udee1\ufe0f Assicurazione\n\ud83c\udfe1 Consegna \u2022 \ud83d\udcca Finanziamento",
+    bonjour: "Ciao! Sono l'assistente AS Autohandel GmbH \ud83d\udc4b\n\nChiedimi di:\n\ud83d\udd52 Orari \u2022 \ud83d\udccd Indirizzo\n\ud83d\ude97 Veicoli \u2022 \ud83d\udcb0 Prezzi\n\ud83d\udd27 Garanzia \u2022 \ud83d\udee1\ufe0f Assicurazione\n\ud83c\udfe1 Consegna \u2022 \ud83d\udcca Finanziamento",
     horaires: "\ud83d\udd52 **Orari di apertura**\n\n\ud83d\udcc5 Lun\u2013Ven: 08:00 \u2013 18:00\n\ud83d\udcc5 Sab: 09:00 \u2013 14:00\n\u274c Dom: Chiuso",
     prix: "\ud83d\udcb0 **Prezzi competitivi**\n\nVeicoli nuovi e usati.\n\ud83d\udcca Preventivo gratuito in 24h\n\ud83d\udcb3 Finanziamento disponibile\n\nCatalogo:\n\ud83d\udd17 " + SITE_URL + "/catalog",
     rdv: "\ud83d\udd52 **Prenota un appuntamento**\n\n\ud83d\udcac WhatsApp: " + WA_DISPLAY + "\n\ud83d\udce7 " + EMAIL + "\nRispondiamo entro 24h!",
@@ -107,7 +107,7 @@ const R = {
     default: "Ciao! Posso aiutarti con:\n\n\ud83d\udd52 Orari \u2022 \ud83d\udccd Indirizzo\n\ud83d\ude97 Veicoli \u2022 \ud83d\udcb0 Prezzi\n\ud83d\udee1\ufe0f Assicurazione \u2022 \ud83d\udcca Finanziamento",
   },
   pt: {
-    bonjour: "Ol\u00e1! Sou o assistente Automatik Gebrauchtwagen \ud83d\udc4b\n\nPergunte-me sobre:\n\ud83d\udd52 Hor\u00e1rios \u2022 \ud83d\udccd Endere\u00e7o\n\ud83d\ude97 Ve\u00edculos \u2022 \ud83d\udcb0 Pre\u00e7os\n\ud83d\udd27 Garantia \u2022 \ud83d\udee1\ufe0f Seguro\n\ud83c\udfe1 Entrega \u2022 \ud83d\udcca Financiamento",
+    bonjour: "Ol\u00e1! Sou o assistente AS Autohandel GmbH \ud83d\udc4b\n\nPergunte-me sobre:\n\ud83d\udd52 Hor\u00e1rios \u2022 \ud83d\udccd Endere\u00e7o\n\ud83d\ude97 Ve\u00edculos \u2022 \ud83d\udcb0 Pre\u00e7os\n\ud83d\udd27 Garantia \u2022 \ud83d\udee1\ufe0f Seguro\n\ud83c\udfe1 Entrega \u2022 \ud83d\udcca Financiamento",
     horaires: "\ud83d\udd52 **Hor\u00e1rio de funcionamento**\n\n\ud83d\udcc5 Seg\u2013Sex: 08:00 \u2013 18:00\n\ud83d\udcc5 S\u00e1bado: 09:00 \u2013 14:00\n\u274c Domingo: Fechado",
     prix: "\ud83d\udcb0 **Pre\u00e7os competitivos**\n\nVe\u00edculos novos e usados.\n\ud83d\udcca Or\u00e7amento gratuito em 24h\n\ud83d\udcb3 Financiamento dispon\u00edvel\n\nCat\u00e1logo:\n\ud83d\udd17 " + SITE_URL + "/catalog",
     rdv: "\ud83d\udd52 **Marcar consulta**\n\n\ud83d\udcac WhatsApp: " + WA_DISPLAY + "\n\ud83d\udce7 " + EMAIL + "\nRespondemos em 24h!",
@@ -126,7 +126,7 @@ const R = {
     default: "Ol\u00e1! Posso ajudar com:\n\n\ud83d\udd52 Hor\u00e1rios \u2022 \ud83d\udccd Endere\u00e7o\n\ud83d\ude97 Ve\u00edculos \u2022 \ud83d\udcb0 Pre\u00e7os\n\ud83d\udee1\ufe0f Seguro \u2022 \ud83d\udcca Financiamento",
   },
   ar: {
-    bonjour: "\u0645\u0631\u062d\u0628\u0627\u064b! \u0623\u0646\u0627 \u0645\u0633\u0627\u0639\u062f Automatik Gebrauchtwagen \ud83d\udc4b\n\n\u0633\u0624\u0644\u0646\u064a \u0639\u0646:\n\ud83d\udd52 \u0627\u0644\u0633\u0627\u0639\u0627\u062a \u2022 \ud83d\udccd \u0627\u0644\u0639\u0646\u0648\u0627\u0646\n\ud83d\ude97 \u0627\u0644\u0645\u0631\u0643\u0628\u0627\u062a \u2022 \ud83d\udcb0 \u0627\u0644\u0623\u0633\u0639\u0627\u0631\n\ud83d\udd27 \u0627\u0644\u0636\u0645\u0627\u0646 \u2022 \ud83d\udee1\ufe0f \u0627\u0644\u062a\u0623\u0645\u064a\u0646\n\ud83c\udfe1 \u0627\u0644\u062a\u0648\u0635\u064a\u0644 \u2022 \ud83d\udcca \u0627\u0644\u062a\u0645\u0648\u064a\u0644",
+    bonjour: "\u0645\u0631\u062d\u0628\u0627\u064b! \u0623\u0646\u0627 \u0645\u0633\u0627\u0639\u062f AS Autohandel GmbH \ud83d\udc4b\n\n\u0633\u0624\u0644\u0646\u064a \u0639\u0646:\n\ud83d\udd52 \u0627\u0644\u0633\u0627\u0639\u0627\u062a \u2022 \ud83d\udccd \u0627\u0644\u0639\u0646\u0648\u0627\u0646\n\ud83d\ude97 \u0627\u0644\u0645\u0631\u0643\u0628\u0627\u062a \u2022 \ud83d\udcb0 \u0627\u0644\u0623\u0633\u0639\u0627\u0631\n\ud83d\udd27 \u0627\u0644\u0636\u0645\u0627\u0646 \u2022 \ud83d\udee1\ufe0f \u0627\u0644\u062a\u0623\u0645\u064a\u0646\n\ud83c\udfe1 \u0627\u0644\u062a\u0648\u0635\u064a\u0644 \u2022 \ud83d\udcca \u0627\u0644\u062a\u0645\u0648\u064a\u0644",
     horaires: "\ud83d\udd52 **\u0633\u0627\u0639\u0627\u062a \u0627\u0644\u0639\u0645\u0644**\n\n\ud83d\udcc5 \u0627\u0644\u0625\u062b\u0646\u064a\u0646\u2013\u0627\u0644\u062c\u0645\u0639\u0629: 08:00\u201318:00\n\ud83d\udcc5 \u0627\u0644\u0633\u0628\u062a: 09:00\u201314:00\n\u274c \u0627\u0644\u0623\u062d\u062f: \u0645\u063a\u0644\u0642",
     prix: "\ud83d\udcb0 **\u0623\u0633\u0639\u0627\u0631 \u0639\u0627\u062f\u0644\u0629**\n\n\u0633\u064a\u0627\u0631\u0627\u062a \u062c\u062f\u064a\u062f\u0629 \u0648\u0645\u0633\u062a\u0639\u0645\u0644\u0629.\n\ud83d\udd17 " + SITE_URL + "/catalog",
     rdv: "\ud83d\udd52 **\u062d\u062c\u0632 \u0645\u0648\u0639\u062f**\n\n\ud83d\udcac WhatsApp: " + WA_DISPLAY + "\n\ud83d\udce7 " + EMAIL,
@@ -359,7 +359,7 @@ export default function Chatbot() {
           </div>
           <div style={{ flex: 1 }}>
             <div style={{ fontFamily: "'Helvetica Neue', Helvetica, Arial, sans-serif", fontWeight: 800, fontSize: 15, color: '#fff' }}>
-              Automatik Gebrauchtwagen
+              AS Autohandel GmbH
             </div>
             <div style={{ fontSize: 11, color: 'rgba(255,255,255,0.7)', display: 'flex', alignItems: 'center', gap: 5, marginTop: 2 }}>
               <span style={{ width: 6, height: 6, background: '#4ade80', borderRadius: '50%', display: 'inline-block' }} />

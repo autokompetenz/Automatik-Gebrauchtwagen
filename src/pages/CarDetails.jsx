@@ -549,7 +549,7 @@ export default function CarDetails() {
               </div>
               <div>
                 <h3 style={{ fontFamily: "'Helvetica Neue', Helvetica, Arial, sans-serif", fontWeight: 700, fontSize: isMobile ? 18 : 22, color: C.text, marginBottom: 4 }}>
-                  {lang === 'fr' ? 'Garantie basique Automatik Gebrauchtwagen' : lang === 'en' ? 'Automatik Gebrauchtwagen Basic Warranty' : lang === 'de' ? 'Automatik Gebrauchtwagen Basisgarantie' : 'ضمان Automatik Gebrauchtwagen الأساسي'}
+                  {lang === 'fr' ? 'Garantie basique AS Autohandel GmbH' : lang === 'en' ? 'AS Autohandel GmbH Basic Warranty' : lang === 'de' ? 'AS Autohandel GmbH Basisgarantie' : 'ضمان AS Autohandel GmbH الأساسي'}
                 </h3>
                 <div style={{ display: 'inline-flex', alignItems: 'center', gap: 8, background: 'rgba(19,40,83,0.1)', border: '1px solid rgba(19,40,83,0.25)', padding: '4px 12px', borderRadius: 6 }}>
                   <span style={{ fontSize: 12, fontWeight: 700, color: '#132853' }}>
@@ -794,7 +794,7 @@ export default function CarDetails() {
               <span style={{ fontSize: 48 }}>✓</span>
               <div style={{ textAlign: 'left' }}>
                 <div style={{ fontSize: 14, fontWeight: 800, letterSpacing: '0.2em', textTransform: 'uppercase', color: '#132853' }}>
-                  {lang === 'fr' ? 'Certifié Automatik Gebrauchtwagen' : lang === 'en' ? 'Certified Automatik Gebrauchtwagen' : lang === 'de' ? 'Zertifiziert Automatik Gebrauchtwagen' : 'معتمد من Automatik Gebrauchtwagen'}
+                  {lang === 'fr' ? 'Certifié AS Autohandel GmbH' : lang === 'en' ? 'Certified AS Autohandel GmbH' : lang === 'de' ? 'Zertifiziert AS Autohandel GmbH' : 'معتمد من AS Autohandel GmbH'}
                 </div>
                 <p style={{ fontSize: isMobile ? 16 : 18, fontWeight: 700, color: C.text, marginTop: 4 }}>
                   {lang === 'fr' ? 'Ce véhicule a validé notre contrôle qualité complet.' : lang === 'en' ? 'This vehicle has passed our complete quality control.' : lang === 'de' ? 'Dieses Fahrzeug hat unsere vollständige Qualitätskontrolle bestanden.' : 'اجتازت هذه المركبة فحص الجودة الكامل لدينا.'}

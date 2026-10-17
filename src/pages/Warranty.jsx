@@ -137,7 +137,7 @@ export default function Warranty() {
             lineHeight:1.1, 
             marginBottom:20 
           }}>
-            {t({ fr:'Garantie\nAutomatik Gebrauchtwagen', en:'Automatik Gebrauchtwagen\nWarranty', de:'Automatik Gebrauchtwagen\nGarantie', es:'Garantía\nAutomatik Gebrauchtwagen', it:'Garanzia\nAutomatik Gebrauchtwagen', pt:'Garantia\nAutomatik Gebrauchtwagen', ro:'Garanție\nAutomatik Gebrauchtwagen' })}
+            {t({ fr:'Garantie\nAS Autohandel GmbH', en:'AS Autohandel GmbH\nWarranty', de:'AS Autohandel GmbH\nGarantie', es:'Garantía\nAS Autohandel GmbH', it:'Garanzia\nAS Autohandel GmbH', pt:'Garantia\nAS Autohandel GmbH', ro:'Garanție\nAS Autohandel GmbH' })}
           </h1>
           <p style={{ fontSize: isMobile ? 16 : 18, color:'rgba(255,255,255,0.7)', lineHeight:1.7, maxWidth:600, marginBottom:32 }}>
             {t({ fr:'Une protection complète pour votre véhicule avec des garanties étendues et une assistance 24/7. Roulez l\'esprit tranquille.', en:'Complete protection for your vehicle with extended warranties and 24/7 assistance. Drive with peace of mind.', de:'Umfassender Schutz für Ihr Fahrzeug mit erweiterten Garantien und 24/7 Assistance. Fahren Sie sorgenfrei.', es:'Protección completa para su vehículo con garantías extendidas y asistencia 24/7. Conduzca con tranquilidad.', it:'Protezione completa per il vostro veicolo con garanzie estese e assistenza 24/7. Guidate tranquilli.', pt:'Proteção completa para seu veículo com garantias estendidas e assistência 24/7. Dirija com tranquilidade.', ro:'O protecție completă pentru vehiculul dvs. cu garanții extinse și asistență 24/7. Conduceți cu liniște sufletească.' })}
@@ -193,7 +193,7 @@ export default function Warranty() {
               {t({ fr:'INCLUSE', en:'INCLUDED', de:'INKLUSIVE', es:'INCLUIDO', it:'INCLUSO', pt:'INCLUÍDO', ro:'INCLUSĂ' })}
             </div>
             <h2 style={{ fontFamily:"'Helvetica Neue',Helvetica,Arial,sans-serif", fontWeight:900, fontSize:'clamp(28px,4vw,52px)', color:C.text, letterSpacing:'-0.02em' }}>
-              {t({ fr:'Garantie Basique\nAutomatik Gebrauchtwagen', en:'Automatik Gebrauchtwagen\nBasic Warranty', de:'Automatik Gebrauchtwagen\nBasisgarantie', es:'Garantía Básica\nAutomatik Gebrauchtwagen', it:'Garanzia Base\nAutomatik Gebrauchtwagen', pt:'Garantia Básica\nAutomatik Gebrauchtwagen', ro:'Garanție de Bază\nAutomatik Gebrauchtwagen' })}
+              {t({ fr:'Garantie Basique\nAS Autohandel GmbH', en:'AS Autohandel GmbH\nBasic Warranty', de:'AS Autohandel GmbH\nBasisgarantie', es:'Garantía Básica\nAS Autohandel GmbH', it:'Garanzia Base\nAS Autohandel GmbH', pt:'Garantia Básica\nAS Autohandel GmbH', ro:'Garanție de Bază\nAS Autohandel GmbH' })}
             </h2>
             <p style={{ fontSize:16, color:C.text3, marginTop:12, maxWidth:600, margin:'12px auto 0' }}>
               {t({ fr:'Incluse dans toutes les commandes. Valable 12 mois ou 10 000 km (première échéance atteinte).', en:'Included in all orders. Valid 12 months or 10,000 km (first threshold reached).', de:'In allen Bestellungen enthalten. Gültig 12 Monate oder 10.000 km (erste Schwelle erreicht).', es:'Incluida en todos los pedidos. Válida 12 meses o 10.000 km (primer umbral alcanzado).', it:'Inclusa in tutti gli ordini. Valida 12 mesi o 10.000 km (prima soglia raggiunta).', pt:'Incluída em todos os pedidos. Válida 12 meses ou 10.000 km (primeiro limite atingido).', ro:'Inclusă în toate comenzile. Valabilă 12 luni sau 10.000 km (prima limită atinsă).' })}

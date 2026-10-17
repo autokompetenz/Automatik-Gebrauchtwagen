@@ -45,9 +45,9 @@ function SeoTitle() {
   const { pathname } = useLocation();
   const { lang } = useLangStore();
   useEffect(() => {
-    const base = 'Automatik Gebrauchtwagen';
+    const base = 'AS Autohandel GmbH';
     const titles = {
-      '/': lang==='fr'? `${base} — Véhicules neufs et d'occasion à Naumburg, Allemagne` : `${base} — New & Used Cars in Naumburg`,
+      '/': lang==='fr'? `${base} — Véhicules neufs et d'occasion à Offenbach, Allemagne` : `${base} — New & Used Cars in Offenbach`,
       '/catalog': lang==='fr'? `${base} — Catalogue véhicules` : `${base} — Vehicles`,
       '/simulation': lang==='fr'? `${base} — Simulation de financement` : `${base} — Financing`,
       '/contact': lang==='fr'? `${base} — Contact` : `${base} — Contact`,
@@ -81,7 +81,7 @@ function RouteFallback() {
           animation: 'automatik-spin 0.8s linear infinite',
         }} />
         <div style={{ fontFamily: "'Helvetica Neue',Helvetica,Arial,sans-serif", fontSize: 13, fontWeight: 700, letterSpacing: '0.25em', textTransform: 'uppercase', color: 'rgba(255,255,255,0.5)' }}>
-          Automatik Gebrauchtwagen
+          AS Autohandel GmbH
         </div>
       </div>
       <style>{`@keyframes automatik-spin { to { transform: rotate(360deg); } }`}</style>

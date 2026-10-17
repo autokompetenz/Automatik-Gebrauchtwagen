@@ -42,7 +42,7 @@ export default function Sell() {
     }
 
     const waText = [
-      `🚗 *Demande d'estimation — Automatik Gebrauchtwagen*`,
+      `🚗 *Demande d'estimation — AS Autohandel GmbH*`,
       ``,
       `Nom : ${form.name}`,
       `Téléphone : ${form.phone}`,
